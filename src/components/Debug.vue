@@ -36,7 +36,7 @@
           :title="event.title"
         >
           Occured at: {{ event.occuredAt }}
-          <pre>{{ event.data }}</pre>
+          <pre v-if="event.data">{{ event.data }}</pre>
         </Expander>
       </Expander>
     </div>
@@ -68,6 +68,14 @@ export default {
         data: {
           elementCodename: payload
         }
+      });
+    });
+    GlobalEventBus.$on("onLogEvent", payload => {
+      this.eventHistory.push({
+        type: "logEvent",
+        title: payload.title,
+        occuredAt: Date.now(),
+        data: payload.data
       });
     });
   }

@@ -23,15 +23,13 @@
     <button class="form__btn" type="button" @click="search">
       Search
     </button>
-
-    <pre v-if="token">{{ token }}</pre>
-    <pre v-if="searchResults">{{ searchResults }}</pre>
     <!-- Your UI above -->
   </fieldset>
 </template>
 
 <script>
 import commercetools from "../helpers/commercetools";
+import { logEvent } from "../globalEventBus";
 
 export default {
   props: {
@@ -61,6 +59,7 @@ export default {
       });
     },
     search: function() {
+      logEvent(`Searched for "${this.searchText}"`);
       const config = this.element.config.commercetools;
       commercetools
         .searchProducts(
@@ -70,7 +69,11 @@ export default {
           this.searchText
         )
         .then(results => {
+          logEvent(`Results for "${this.searchText}"`, results);
           this.searchResults = results;
+        })
+        .catch(reason => {
+          logEvent(`Search error for "${this.searchText}"`, reason);
         });
     },
     // Sample action above
@@ -91,6 +94,7 @@ export default {
         config.scope
       )
       .then(token => {
+        logEvent(`commercetools token retrieved`, token);
         this.token = token;
       });
   }
