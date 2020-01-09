@@ -1,4 +1,4 @@
-# Kentico Kontent Custom Element: Vue Template
+# Kentico Kontent Custom Element: commercetools
 
 This [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features) for [Kentico Kontent](https://kontent.ai) gives editors a way to INSERT PURPOSE.
 
@@ -17,7 +17,7 @@ Netlify has made this easy. If you click the deploy button below, it will guide 
 
 ***UPDATE THE REPO URL IN THE DEPLOY BUTTON TO YOUR REPO URL***
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ChristopherJennings/kontent-custom-element-vue-template)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ChristopherJennings/kontent-custom-element-commercetools)
 
 ## Configuring the Custom Element
 
