@@ -13,11 +13,26 @@
     <div v-if="value" class="selectedNumber">
       {{ value.externalId }}
     </div>
+
+    <input
+      class="text-field__input"
+      type="text"
+      placeholder="Search"
+      v-model="searchText"
+    />
+    <button class="form__btn" type="button" @click="search">
+      Search
+    </button>
+
+    <pre v-if="token">{{ token }}</pre>
+    <pre v-if="searchResults">{{ searchResults }}</pre>
     <!-- Your UI above -->
   </fieldset>
 </template>
 
 <script>
+import commercetools from "../helpers/commercetools";
+
 export default {
   props: {
     element: {
@@ -32,6 +47,11 @@ export default {
       type: Object
     }
   },
+  data: () => ({
+    token: null,
+    searchText: "",
+    searchResults: null
+  }),
   methods: {
     // Sample action below
     sampleAction: function(value) {
@@ -40,6 +60,19 @@ export default {
         updated: Date.now()
       });
     },
+    search: function() {
+      const config = this.element.config.commercetools;
+      commercetools
+        .searchProducts(
+          config.api_url,
+          config.project,
+          this.token,
+          this.searchText
+        )
+        .then(results => {
+          this.searchResults = results;
+        });
+    },
     // Sample action above
     reset: function() {
       this.save(null);
@@ -47,6 +80,19 @@ export default {
     save: function(value) {
       this.$emit("update:value", value);
     }
+  },
+  created: function() {
+    const config = this.element.config.commercetools;
+    commercetools
+      .getToken(
+        config.oauth_url,
+        config.client_id,
+        config.client_secret,
+        config.scope
+      )
+      .then(token => {
+        this.token = token;
+      });
   }
 };
 </script>
@@ -54,19 +100,5 @@ export default {
 <style scoped>
 fieldset {
   border: none;
-}
-
-.selectedNumber {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  padding: 0px;
-  background: #4caf50;
-  color: #fff;
-  text-align: center;
-  font-size: 32px;
-  line-height: 50px;
-  font-weight: 700;
-  margin: 10px 0;
 }
 </style>
