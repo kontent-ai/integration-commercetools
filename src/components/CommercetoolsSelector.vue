@@ -1,6 +1,12 @@
 <template>
   <form @submit.prevent="search">
     <fieldset :disabled="element && element.disabled">
+      <div v-if="value">
+        Currenly Selected: {{ value }}<br />
+        <button class="form__icon-btn" type="button" @click="reset()">
+          <i class="icon-remove"></i>
+        </button>
+      </div>
       <div>
         <input
           class="text-field__input"
@@ -15,9 +21,15 @@
       <div v-if="searchResults">
         {{ searchResults.count }} Results
         <div v-for="result in searchResults.results" :key="result.key">
-          <strong>{{ result.name["en-US"] }}</strong
+          <button
+            class="form__icon-btn"
+            type="button"
+            @click="save(result.key)"
+          >
+            <i class="icon-add"></i></button
+          ><strong>{{ result.name["en-US"] }}</strong
           ><br />
-          {{ result.description["en-US"] }}
+          {{ result.description ? result.description["en-US"] : "" }}
         </div>
       </div>
     </fieldset>
@@ -38,14 +50,13 @@ export default {
       type: Object,
       required: true
     },
-    value: {
-      type: Object
-    }
+    value: {}
   },
   data: () => ({
     token: null,
     searchText: "",
-    searchResults: null
+    searchResults: null,
+    currentProductDetails: null
   }),
   methods: {
     // Sample action below
@@ -73,12 +84,36 @@ export default {
           logEvent(`Search error for "${this.searchText}"`, reason);
         });
     },
+    getProductByKey: async function(key) {
+      logEvent(`Getting product for key "${key}"`);
+      const config = this.element.config.commercetools;
+      const product = await commercetools.getProductByKey(
+        config.api_url,
+        config.project,
+        this.token,
+        key
+      );
+
+      logEvent(`Got product for key "${key}"`, product);
+
+      return product;
+    },
+    getCurrentProduct: function() {
+      if (this.$props.value) {
+        this.getProductByKey(this.$props.value);
+      }
+    },
     // Sample action above
     reset: function() {
       this.save(null);
     },
     save: function(value) {
       this.$emit("update:value", value);
+    }
+  },
+  watch: {
+    value: function() {
+      this.getCurrentProduct();
     }
   },
   created: function() {
@@ -93,6 +128,7 @@ export default {
       .then(token => {
         logEvent(`commercetools token retrieved`, token);
         this.token = token;
+        this.getCurrentProduct();
       });
   }
 };

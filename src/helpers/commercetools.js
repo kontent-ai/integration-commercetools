@@ -29,7 +29,17 @@ async function searchProducts(
   return response.data;
 }
 
+async function getProductByKey(apiUrl, project, token, key, staged = true) {
+  const url = `${apiUrl}/${project}/product-projections/key=${key}?staged=${staged}`;
+  const response = await axios.get(url, {
+    headers: { Authorization: `Bearer ${token.access_token}` }
+  });
+
+  return response.data;
+}
+
 export default {
   getToken,
-  searchProducts
+  searchProducts,
+  getProductByKey
 };
