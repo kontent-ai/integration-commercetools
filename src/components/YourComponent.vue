@@ -1,30 +1,29 @@
 <template>
-  <fieldset :disabled="element && element.disabled">
-    <!-- Your UI below -->
-    <button class="btn btn--primary" @click="sampleAction(1)">
-      Choose 1
-    </button>
-    <button class="btn btn--primary" @click="sampleAction(2)">
-      Choose 2
-    </button>
-    <button class="btn btn--primary" @click="reset()">
-      Reset
-    </button>
-    <div v-if="value" class="selectedNumber">
-      {{ value.externalId }}
-    </div>
-
-    <input
-      class="text-field__input"
-      type="text"
-      placeholder="Search"
-      v-model="searchText"
-    />
-    <button class="form__btn" type="button" @click="search">
-      Search
-    </button>
-    <!-- Your UI above -->
-  </fieldset>
+  <form @submit.prevent="search">
+    <fieldset :disabled="element && element.disabled">
+      <!-- Your UI below -->
+      <div>
+        <input
+          class="text-field__input"
+          type="text"
+          placeholder="Search commercetools"
+          v-model="searchText"
+        />
+        <button class="form__btn" type="submit">
+          Search
+        </button>
+      </div>
+      <div v-if="searchResults">
+        {{ searchResults.count }} Results
+        <div v-for="result in searchResults.results" :key="result.key">
+          <strong>{{ result.name["en-US"] }}</strong
+          ><br />
+          {{ result.description["en-US"] }}
+        </div>
+      </div>
+      <!-- Your UI above -->
+    </fieldset>
+  </form>
 </template>
 
 <script>
