@@ -1,7 +1,6 @@
 <template>
   <form @submit.prevent="search">
     <fieldset :disabled="element && element.disabled">
-      <!-- Your UI below -->
       <div>
         <input
           class="text-field__input"
@@ -21,7 +20,6 @@
           {{ result.description["en-US"] }}
         </div>
       </div>
-      <!-- Your UI above -->
     </fieldset>
   </form>
 </template>

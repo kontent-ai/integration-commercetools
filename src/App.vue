@@ -6,7 +6,7 @@
       </p>
     </Callout>
     <div v-if="loaded">
-      <YourComponent
+      <CommercetoolsSelector
         :element="element"
         :context="context"
         :value.sync="value"
@@ -26,7 +26,7 @@
 /*global CustomElement*/
 import Callout from "./components/Callout";
 import Debug from "./components/Debug";
-import YourComponent from "./components/YourComponent";
+import CommercetoolsSelector from "./components/CommercetoolsSelector";
 import Vue from "vue";
 import { GlobalEventBus } from "./globalEventBus";
 
@@ -35,7 +35,7 @@ export default {
   components: {
     Callout,
     Debug,
-    YourComponent
+    CommercetoolsSelector
   },
   data: () => ({
     loaded: false,
