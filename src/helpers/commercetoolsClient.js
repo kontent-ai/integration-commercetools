@@ -8,6 +8,7 @@ export default class commercetoolsClient {
     this.oauthUrl = options.oauthUrl;
     this.apiUrl = options.apiUrl;
     this.scope = options.scope;
+    this.defaultCulture = options.defaultCulture;
     this._tokenDetails = options.tokenDetails;
   }
 
@@ -33,7 +34,12 @@ export default class commercetoolsClient {
     };
   }
 
-  async searchProducts({ text, staged = true, limit = 10, culture = "en-US" }) {
+  async searchProducts({
+    text,
+    staged = true,
+    limit = 10,
+    culture = this.defaultCulture
+  }) {
     const url = `${this.apiUrl}/${this.project}/product-projections/search?staged=${staged}&limit=${limit}&text.${culture}="${text}"`;
     return await this.getResponse(url);
   }

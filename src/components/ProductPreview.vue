@@ -1,6 +1,6 @@
 <template>
   <div v-if="details">
-    Currenly Selected: {{ value }}<br />
+    Currenly Selected: {{ details.name[culture] }} ({{ productKey }})<br />
     <button class="form__icon-btn" type="button" @click="reset()">
       <i class="icon-remove"></i>
     </button>
@@ -16,10 +16,17 @@ export default {
       type: Object,
       required: true
     },
-    value: {}
+    productKey: {
+      type: String,
+      required: true
+    },
+    culture: {
+      type: String,
+      required: true
+    }
   },
   data: () => ({
-    details: {}
+    details: null
   }),
   watch: {
     value: {
@@ -29,13 +36,16 @@ export default {
   },
   methods: {
     getCurrentProduct: async function() {
-      if (this.$props.value) {
-        logEvent(`Getting product details for "${this.$props.value}"`);
+      if (this.$props.productKey) {
+        logEvent(`Getting product details for "${this.$props.productKey}"`);
         const details = await this.commercetoolsClient.getProductByKey({
-          key: this.$props.value
+          key: this.$props.productKey
         });
 
-        logEvent(`Got product details for "${this.$props.value}"`, details);
+        logEvent(
+          `Got product details for "${this.$props.productKey}"`,
+          details
+        );
         this.details = details;
       }
     }

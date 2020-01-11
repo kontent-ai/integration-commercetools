@@ -2,8 +2,9 @@
   <form @submit.prevent="search">
     <fieldset :disabled="element && element.disabled">
       <ProductPreview
-        :value="value"
+        :productKey="value"
         :commercetoolsClient="commercetoolsClient"
+        :culture="this.element.config.commercetools.defaultCulture"
       />
       <div>
         <input
