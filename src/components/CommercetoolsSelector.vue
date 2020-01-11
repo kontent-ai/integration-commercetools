@@ -1,12 +1,10 @@
 <template>
   <form @submit.prevent="search">
     <fieldset :disabled="element && element.disabled">
-      <div v-if="value">
-        Currenly Selected: {{ value }}<br />
-        <button class="form__icon-btn" type="button" @click="reset()">
-          <i class="icon-remove"></i>
-        </button>
-      </div>
+      <ProductPreview
+        :value="value"
+        :commercetoolsClient="commercetoolsClient"
+      />
       <div>
         <input
           class="text-field__input"
@@ -37,10 +35,14 @@
 </template>
 
 <script>
-import commercetools from "../helpers/commercetools";
+import commercetoolsClient from "../helpers/commercetoolsClient";
 import { logEvent } from "../globalEventBus";
+import ProductPreview from "./ProductPreview";
 
 export default {
+  components: {
+    ProductPreview
+  },
   props: {
     element: {
       type: Object,
@@ -53,29 +55,16 @@ export default {
     value: {}
   },
   data: () => ({
-    token: null,
+    commercetoolsClient: null,
     searchText: "",
-    searchResults: null,
-    currentProductDetails: null
+    searchResults: null
   }),
   methods: {
-    // Sample action below
-    sampleAction: function(value) {
-      this.save({
-        externalId: value,
-        updated: Date.now()
-      });
-    },
     search: function() {
       logEvent(`Searched for "${this.searchText}"`);
-      const config = this.element.config.commercetools;
-      commercetools
-        .searchProducts(
-          config.api_url,
-          config.project,
-          this.token,
-          this.searchText
-        )
+
+      this.commercetoolsClient
+        .searchProducts({ text: this.searchText })
         .then(results => {
           logEvent(`Results for "${this.searchText}"`, results);
           this.searchResults = results;
@@ -84,26 +73,6 @@ export default {
           logEvent(`Search error for "${this.searchText}"`, reason);
         });
     },
-    getProductByKey: async function(key) {
-      logEvent(`Getting product for key "${key}"`);
-      const config = this.element.config.commercetools;
-      const product = await commercetools.getProductByKey(
-        config.api_url,
-        config.project,
-        this.token,
-        key
-      );
-
-      logEvent(`Got product for key "${key}"`, product);
-
-      return product;
-    },
-    getCurrentProduct: function() {
-      if (this.$props.value) {
-        this.getProductByKey(this.$props.value);
-      }
-    },
-    // Sample action above
     reset: function() {
       this.save(null);
     },
@@ -111,25 +80,9 @@ export default {
       this.$emit("update:value", value);
     }
   },
-  watch: {
-    value: function() {
-      this.getCurrentProduct();
-    }
-  },
   created: function() {
     const config = this.element.config.commercetools;
-    commercetools
-      .getToken(
-        config.oauth_url,
-        config.client_id,
-        config.client_secret,
-        config.scope
-      )
-      .then(token => {
-        logEvent(`commercetools token retrieved`, token);
-        this.token = token;
-        this.getCurrentProduct();
-      });
+    this.commercetoolsClient = new commercetoolsClient(config);
   }
 };
 </script>
