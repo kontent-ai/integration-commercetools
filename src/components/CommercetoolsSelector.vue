@@ -2,7 +2,7 @@
   <form @submit.prevent="search">
     <fieldset :disabled="element && element.disabled">
       <ProductPreview
-        :productKey="value"
+        :product="value"
         :commercetoolsClient="commercetoolsClient"
         :culture="this.element.config.commercetools.defaultCulture"
       />
@@ -23,7 +23,7 @@
           <button
             class="form__icon-btn"
             type="button"
-            @click="save(result.key)"
+            @click="selectProduct(result.key)"
           >
             <i class="icon-add"></i></button
           ><strong>{{ result.name["en-US"] }}</strong
@@ -73,6 +73,11 @@ export default {
         .catch(reason => {
           logEvent(`Search error for "${this.searchText}"`, reason);
         });
+    },
+    selectProduct(value) {
+      this.save({
+        key: value
+      });
     },
     reset: function() {
       this.save(null);
