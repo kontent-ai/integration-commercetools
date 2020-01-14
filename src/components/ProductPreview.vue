@@ -1,18 +1,20 @@
 <template>
-  <div v-if="details">
-    Currenly Selected: {{ name }} ({{ key }})<br />
-    <p v-if="description">Desc: {{ description }}</p>
-    <img :src="image" v-if="image" />
-    <button class="form__icon-btn" type="button" @click="reset()">
-      <i class="icon-remove"></i>
-    </button>
+  <div class="preview" v-if="details">
+    <ProductCard :productKey="key" :name="name" :image="image">
+      <slot></slot>
+    </ProductCard>
   </div>
 </template>
 
 <script>
 import { logEvent } from "../globalEventBus";
+import ProductCard from "./ProductCard";
+import { getLocalizedProperty, getSmallImage } from "../helpers/commercetools";
 
 export default {
+  components: {
+    ProductCard
+  },
   props: {
     commercetoolsClient: {
       type: Object,
@@ -38,22 +40,13 @@ export default {
       return null;
     },
     name: function() {
-      return this.getLocalizedProperty("name", this.culture);
+      return getLocalizedProperty(this.details, "name", this.culture);
     },
     description: function() {
-      return this.getLocalizedProperty("description", this.culture);
+      return getLocalizedProperty(this.details, "name", this.culture);
     },
     image: function() {
-      if (
-        this.details &&
-        this.details.masterVariant &&
-        this.details.masterVariant.images.length > 0
-      ) {
-        const full = this.details.masterVariant.images[0].url;
-        const index = full.lastIndexOf(".");
-        return full.substring(0, index) + "-small" + full.substring(index);
-      }
-      return null;
+      return getSmallImage(this.details);
     }
   },
   watch: {
@@ -73,15 +66,17 @@ export default {
         logEvent(`Got product details for "${this.key}"`, details);
         this.details = details;
       }
-    },
-    getLocalizedProperty: function(property, culture) {
-      const valueExists =
-        this.details &&
-        this.details[property] &&
-        this.details[property][culture];
-
-      return valueExists ? this.details[property][culture] : null;
     }
   }
 };
 </script>
+
+<style scoped>
+.preview {
+  width: 100%;
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+}
+</style>

@@ -1,48 +1,50 @@
 <template>
-  <form @submit.prevent="search">
-    <fieldset :disabled="element && element.disabled">
-      <ProductPreview
-        :product="value"
-        :commercetoolsClient="commercetoolsClient"
-        :culture="this.element.config.commercetools.defaultCulture"
-      />
-      <div>
-        <input
-          class="text-field__input"
-          type="text"
-          placeholder="Search commercetools"
-          v-model="searchText"
-        />
-        <button class="form__btn" type="submit">
-          Search
-        </button>
-      </div>
-      <div v-if="searchResults">
-        {{ searchResults.count }} Results
-        <div v-for="result in searchResults.results" :key="result.key">
-          <button
-            class="form__icon-btn"
-            type="button"
-            @click="selectProduct(result.key)"
-          >
-            <i class="icon-add"></i></button
-          ><strong>{{ result.name["en-US"] }}</strong
-          ><br />
-          {{ result.description ? result.description["en-US"] : "" }}
+  <div class="wrapper">
+    <ProductPreview
+      v-if="value"
+      :product="value"
+      :commercetoolsClient="commercetoolsClient"
+      :culture="this.element.config.commercetools.defaultCulture"
+    >
+      <button
+        class="btn btn--primary"
+        :disabled="element.disabled"
+        @click="reset"
+      >
+        <i class="icon-remove"></i>&nbsp;Clear Selection
+      </button>
+    </ProductPreview>
+
+    <form v-if="!value" @submit.prevent="search">
+      <fieldset :disabled="element && element.disabled">
+        <div class="searchBox">
+          <input
+            class="text-field__input"
+            type="text"
+            placeholder="Search commercetools"
+            v-model="searchText"
+          />
+          <button class="btn btn--primary" type="submit">Search</button>
         </div>
-      </div>
-    </fieldset>
-  </form>
+        <ProductSearchResults
+          :resultData="searchResults"
+          @selectProduct="selectProduct"
+        ></ProductSearchResults>
+      </fieldset>
+    </form>
+  </div>
 </template>
 
 <script>
 import commercetoolsClient from "../helpers/commercetoolsClient";
 import { logEvent } from "../globalEventBus";
 import ProductPreview from "./ProductPreview";
+import ProductSearchResults from "./ProductSearchResults";
 
 export default {
   components: {
-    ProductPreview
+    ProductPreview,
+    ProductSearchResults
   },
   props: {
     element: {
@@ -75,6 +77,8 @@ export default {
         });
     },
     selectProduct(value) {
+      this.searchText = "";
+      this.searchResults = null;
       this.save({
         key: value
       });
@@ -83,7 +87,9 @@ export default {
       this.save(null);
     },
     save: function(value) {
-      this.$emit("update:value", value);
+      if (this.element && !this.element.disabled) {
+        this.$emit("update:value", value);
+      }
     }
   },
   created: function() {
@@ -94,7 +100,24 @@ export default {
 </script>
 
 <style scoped>
+.wrapper {
+  margin: 10px;
+}
+
 fieldset {
   border: none;
+  padding: 0;
+}
+
+.searchBox {
+  display: flex;
+  width: 100%;
+  column-gap: 10px;
+  margin-bottom: 10px;
+}
+
+.searchBox .text-field__input {
+  min-width: inherit;
+  flex-grow: 1;
 }
 </style>
