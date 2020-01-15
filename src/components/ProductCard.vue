@@ -1,7 +1,7 @@
 <template>
   <article class="card">
-    <div class="card__info-hover-bg"></div>
-    <div class="card__info-hover">
+    <div v-if="hoverEnabled" class="card__info-hover-bg"></div>
+    <div v-if="hoverEnabled" class="card__info-hover">
       <slot></slot>
     </div>
     <div class="card__img">
@@ -28,6 +28,11 @@ export default {
     productKey: {
       type: String,
       required: true
+    },
+    hoverEnabled: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   }
 };

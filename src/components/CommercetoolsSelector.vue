@@ -1,50 +1,28 @@
 <template>
-  <div class="wrapper">
-    <ProductPreview
-      v-if="value"
-      :product="value"
+  <div id="commercetoolsWrapper">
+    <ProductSearch
+      v-if="!value && !element.disabled"
       :commercetoolsClient="commercetoolsClient"
-      :culture="this.element.config.commercetools.defaultCulture"
-    >
-      <button
-        class="btn btn--primary"
-        :disabled="element.disabled"
-        @click="reset"
-      >
-        <i class="icon-remove"></i>&nbsp;Clear Selection
-      </button>
-    </ProductPreview>
-
-    <form v-if="!value" @submit.prevent="search">
-      <fieldset :disabled="element && element.disabled">
-        <div class="searchBox">
-          <input
-            class="text-field__input"
-            type="text"
-            placeholder="Search commercetools"
-            v-model="searchText"
-          />
-          <button class="btn btn--primary" type="submit">Search</button>
-        </div>
-        <ProductSearchResults
-          :resultData="searchResults"
-          @selectProduct="selectProduct"
-        ></ProductSearchResults>
-      </fieldset>
-    </form>
+      @onProductSelected="save"
+    />
+    <PreviewValue
+      :value="value"
+      :disabled="element.disabled"
+      :commercetoolsClient="commercetoolsClient"
+      @onClearSelection="reset"
+    />
   </div>
 </template>
 
 <script>
 import commercetoolsClient from "../helpers/commercetoolsClient";
-import { logEvent } from "../globalEventBus";
-import ProductPreview from "./ProductPreview";
-import ProductSearchResults from "./ProductSearchResults";
+import PreviewValue from "./PreviewValue";
+import ProductSearch from "./ProductSearch";
 
 export default {
   components: {
-    ProductPreview,
-    ProductSearchResults
+    PreviewValue,
+    ProductSearch
   },
   props: {
     element: {
@@ -58,31 +36,9 @@ export default {
     value: {}
   },
   data: () => ({
-    commercetoolsClient: null,
-    searchText: "",
-    searchResults: null
+    commercetoolsClient: null
   }),
   methods: {
-    search: function() {
-      logEvent(`Searched for "${this.searchText}"`);
-
-      this.commercetoolsClient
-        .searchProducts({ text: this.searchText })
-        .then(results => {
-          logEvent(`Results for "${this.searchText}"`, results);
-          this.searchResults = results;
-        })
-        .catch(reason => {
-          logEvent(`Search error for "${this.searchText}"`, reason);
-        });
-    },
-    selectProduct(value) {
-      this.searchText = "";
-      this.searchResults = null;
-      this.save({
-        key: value
-      });
-    },
     reset: function() {
       this.save(null);
     },
@@ -99,25 +55,13 @@ export default {
 };
 </script>
 
-<style scoped>
-.wrapper {
+<style>
+#commercetoolsWrapper {
   margin: 10px;
 }
 
 fieldset {
   border: none;
   padding: 0;
-}
-
-.searchBox {
-  display: flex;
-  width: 100%;
-  column-gap: 10px;
-  margin-bottom: 10px;
-}
-
-.searchBox .text-field__input {
-  min-width: inherit;
-  flex-grow: 1;
 }
 </style>

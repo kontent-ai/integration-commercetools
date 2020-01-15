@@ -38,9 +38,10 @@ export default class commercetoolsClient {
     text,
     staged = true,
     limit = 10,
-    culture = this.defaultCulture
+    culture = this.defaultCulture,
+    offset = 0
   }) {
-    const url = `${this.apiUrl}/${this.project}/product-projections/search?staged=${staged}&limit=${limit}&text.${culture}="${text}"`;
+    const url = `${this.apiUrl}/${this.project}/product-projections/search?staged=${staged}&limit=${limit}&offset=${offset}&text.${culture}="${text}"`;
     return await this.getResponse(url);
   }
 

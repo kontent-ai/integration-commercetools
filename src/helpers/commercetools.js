@@ -17,7 +17,7 @@ function getSmallImage(product) {
   return null;
 }
 
-function mapProduct(product, culture) {
+function simplifyProductProjection(product, culture) {
   return {
     key: product.key,
     name: getLocalizedProperty(product, "name", culture),
@@ -25,4 +25,4 @@ function mapProduct(product, culture) {
   };
 }
 
-export { getLocalizedProperty, getSmallImage, mapProduct };
+export { getLocalizedProperty, getSmallImage, simplifyProductProjection };
