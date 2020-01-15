@@ -14,17 +14,34 @@
       </fieldset>
     </form>
     <div v-if="pagedQueryResult">
-      <h3>{{ pagedQueryResult.total }} Results</h3>
+      <h3>
+        {{ pagedQueryResult.total }} Result{{
+          pagedQueryResult.total === 1 ? "" : "s"
+        }}
+      </h3>
       <ProductSearchResultsList
         :culture="culture"
         :results="pagedQueryResult.results"
         @onProductSelected="selectProduct"
       />
-      <button v-if="page > 1 && pages > 1" @click="goToPage(page - 1)">
-        Previous
-      </button>
-      Page {{ page }} of {{ pages }}
-      <button v-if="page < pages" @click="goToPage(page + 1)">Next</button>
+
+      <div class="paging">
+        <button
+          class="btn btn--secondary btn--xs"
+          :disabled="page === 1"
+          @click="getSearchPage(page - 1)"
+        >
+          Previous
+        </button>
+        <span class="paging__info">Page {{ page }} of {{ pages }}</span>
+        <button
+          class="btn btn--secondary btn--xs"
+          :disabled="page === pages"
+          @click="getSearchPage(page + 1)"
+        >
+          Next
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -65,11 +82,8 @@ export default {
     selectProduct: function(product) {
       this.$emit("onProductSelected", product);
     },
-    goToPage: function(page) {
+    getSearchPage: function(page) {
       this.page = page;
-      this.search();
-    },
-    search: function() {
       logEvent(`Searched for "${this.searchText}"`);
 
       this.commercetoolsClient
@@ -86,6 +100,9 @@ export default {
         .catch(reason => {
           logEvent(`Error searching for "${this.searchText}"`, reason);
         });
+    },
+    search: function() {
+      this.getSearchPage(1);
     }
   }
 };
@@ -107,5 +124,16 @@ fieldset {
 .searchBox .text-field__input {
   min-width: inherit;
   flex-grow: 1;
+}
+
+.paging {
+  display: flex;
+  width: 100%;
+  margin: 10px 0;
+  column-gap: 10px;
+  justify-content: center;
+}
+.paging__info {
+  line-height: 31px;
 }
 </style>
