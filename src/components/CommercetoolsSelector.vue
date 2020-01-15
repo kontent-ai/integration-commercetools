@@ -1,5 +1,5 @@
 <template>
-  <div id="commercetoolsWrapper">
+  <div class="wrapper">
     <ProductSearch
       v-if="!value && !element.disabled"
       :commercetoolsClient="commercetoolsClient"
@@ -55,13 +55,8 @@ export default {
 };
 </script>
 
-<style>
-#commercetoolsWrapper {
+<style scoped>
+.wrapper {
   margin: 10px;
-}
-
-fieldset {
-  border: none;
-  padding: 0;
 }
 </style>

@@ -92,6 +92,11 @@ export default {
 </script>
 
 <style scoped>
+fieldset {
+  border: none;
+  padding: 0;
+}
+
 .searchBox {
   display: flex;
   width: 100%;
