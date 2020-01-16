@@ -16,25 +16,28 @@
       <p v-if="!variantId && product.variants.length > 0" class="card__detail">
         Additional variants: {{ product.variants.length }}
       </p>
-      <div v-if="!variantId">
-        <select
-          class="form__dropdown"
-          v-if="product.variants.length > 0"
-          v-model="selectedVariantId"
+    </div>
+    <div class="card__actions" v-if="!variantId">
+      <select
+        class="form__dropdown"
+        v-if="product.variants.length > 0"
+        v-model="selectedVariantId"
+      >
+        <option :value="product.masterVariant.id">Master</option>
+        <option
+          v-for="variant in product.variants"
+          :key="variant.id"
+          :value="variant.id"
+          >Variant {{ variant.id }}</option
         >
-          <option :value="product.masterVariant.id">Master</option>
-          <option
-            v-for="variant in product.variants"
-            :key="variant.id"
-            :value="variant.id"
-            >Variant {{ variant.id }}</option
-          >
-        </select>
-        <button class="btn btn--primary" @click="selectProduct">
-          Select
-        </button>
-      </div>
-      <button v-if="variantId" class="btn btn--primary" @click="clearProduct">
+      </select>
+      <button class="btn btn--primary" @click="selectProduct">
+        Select
+      </button>
+    </div>
+
+    <div class="card__actions" v-if="variantId">
+      <button class="btn btn--primary" @click="clearProduct">
         Clear
       </button>
     </div>
@@ -109,44 +112,13 @@ export default {
   background-color: #fff;
   position: relative;
   overflow: hidden;
-  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
   border: 2px solid #d0cfce;
   text-align: center;
-  /* flex-grow: 1; */
   flex-shrink: 1;
   width: calc(33.3% - 6.66px);
-}
-
-.card__info-hover {
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
-  position: absolute;
-  padding: 16px;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  top: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card:hover .card__info-hover {
-  opacity: 1;
-}
-
-.card__info-hover-bg {
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  background: #fff;
-}
-
-.card:hover .card__info-hover-bg {
-  opacity: 0.3;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card__img {
@@ -170,5 +142,13 @@ export default {
 .card__name {
   margin-top: 5px;
   margin-bottom: 10px;
+}
+
+.card__actions {
+  padding: 10px;
+  background: #f5f5f5;
+  display: flex;
+  column-gap: 10px;
+  justify-content: center;
 }
 </style>
