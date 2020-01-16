@@ -1,7 +1,14 @@
 function getLocalizedProperty(product, property, culture) {
-  const valueExists =
-    product && product[property] && product[property][culture];
-  return valueExists ? product[property][culture] : null;
+  const propertyExists = product && product[property];
+  if (propertyExists) {
+    const valueExists = propertyExists && product[property][culture];
+    if (valueExists) {
+      return product[property][culture];
+    } else {
+      const fallback = Object.keys(product[property])[0];
+      return `${product[property][fallback]} (${fallback})`;
+    }
+  }
 }
 
 function getSmallImage(product) {

@@ -2,13 +2,18 @@
   <div>
     <form @submit.prevent="search">
       <fieldset>
-        <div class="searchBox">
+        <div class="search__query-box">
           <input
             class="text-field__input"
             type="text"
             placeholder="Search commercetools"
             v-model="searchText"
           />
+          <select class="form__dropdown" v-model="culture">
+            <option v-for="culture in cultures" :key="culture">{{
+              culture
+            }}</option>
+          </select>
           <button class="btn btn--primary" type="submit">Search</button>
         </div>
       </fieldset>
@@ -66,6 +71,7 @@ export default {
     }
   },
   data: () => ({
+    cultures: ["en-US", "de-DE"],
     culture: "en-US",
     searchText: "",
     pagedQueryResult: null,
@@ -114,16 +120,19 @@ fieldset {
   padding: 0;
 }
 
-.searchBox {
+.search__query-box {
   display: flex;
   width: 100%;
   column-gap: 10px;
   margin-bottom: 10px;
 }
 
-.searchBox .text-field__input {
+.search__query-box .text-field__input {
   min-width: inherit;
   flex-grow: 1;
+}
+.search__query-box .form__dropdown {
+  width: auto;
 }
 
 .paging {
