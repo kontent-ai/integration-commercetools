@@ -17,7 +17,9 @@
         SKU:
         {{ selectedVariant.sku }}
       </p>
-      <p class="card__detail">Variants: {{ product.variants.length }}</p>
+      <p class="card__detail">
+        Additional variants: {{ product.variants.length }}
+      </p>
     </div>
   </article>
 </template>
