@@ -4,7 +4,7 @@
       v-if="!value && !element.disabled"
       :commercetoolsClient="commercetoolsClient"
       @onProductSelected="save"
-      defaultCulture="en-US"
+      :defaultCulture="defaultCulture"
     />
     <PreviewValue
       v-if="value"

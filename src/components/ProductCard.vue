@@ -8,31 +8,52 @@
       <img v-if="image" :src="image" />
     </div>
     <div class="card__info">
-      <span class="card__key">{{ productKey }}</span>
       <h3 class="card__name">{{ name }}</h3>
+      <p v-if="selectedVariant.key" class="card__sku card__detail">
+        KEY:
+        {{ selectedVariant.key }}
+      </p>
+      <p v-if="selectedVariant.sku" class="card__sku card__detail">
+        SKU:
+        {{ selectedVariant.sku }}
+      </p>
+      <p class="card__detail">Variants: {{ product.variants.length }}</p>
     </div>
   </article>
 </template>
 
 <script>
+import { getLocalizedProperty } from "../helpers/commercetools";
 export default {
   props: {
-    name: {
-      type: String,
-      required: true
-    },
-    image: {
-      type: String,
-      required: false
-    },
-    productKey: {
-      type: String,
+    product: {
+      type: Object,
       required: true
     },
     hoverEnabled: {
       type: Boolean,
       required: false,
       default: true
+    },
+    culture: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    selectedVariant: function() {
+      return this.product.masterVariant;
+    },
+    image: function() {
+      const imageExists =
+        this.selectedVariant &&
+        this.selectedVariant &&
+        this.selectedVariant.images.length > 0;
+
+      return imageExists ? this.selectedVariant.images[0].url : "";
+    },
+    name: function() {
+      return getLocalizedProperty(this.product, "name", this.culture);
     }
   }
 };
@@ -89,9 +110,17 @@ export default {
   min-width: 150px;
 }
 
-.card__key {
-  letter-spacing: 1px;
+.card__img img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.card__detail {
   color: #595959;
+}
+
+.card__sku {
+  letter-spacing: 1px;
 }
 
 .card__name {

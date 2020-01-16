@@ -71,7 +71,7 @@ export default {
     itemsPerPage: {
       type: Number,
       required: false,
-      default: 3
+      default: 9
     },
     defaultCulture: {
       type: String,

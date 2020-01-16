@@ -1,13 +1,12 @@
 <template>
   <div v-if="results" class="cards">
     <ProductCard
-      v-for="result in simplifiedResults"
-      :key="result.key"
-      :productKey="result.key"
-      :name="result.name"
-      :image="result.image"
+      v-for="result in results"
+      :key="result.id"
+      :product="result"
+      :culture="culture"
     >
-      <button class="btn btn--primary" @click="selectProductKey(result.key)">
+      <button class="btn btn--primary" @click="selectProduct(result.id)">
         <i class="icon-add"></i>&nbsp;Select product
       </button>
     </ProductCard>
@@ -16,7 +15,6 @@
 
 <script>
 import ProductCard from "./ProductCard";
-import { simplifyProductProjection } from "../helpers/commercetools";
 
 export default {
   components: {
@@ -32,16 +30,9 @@ export default {
       required: true
     }
   },
-  computed: {
-    simplifiedResults: function() {
-      return this.results.map(result =>
-        simplifyProductProjection(result, this.culture)
-      );
-    }
-  },
   methods: {
-    selectProductKey: function(key) {
-      this.$emit("onProductSelected", { key, culture: this.culture });
+    selectProduct: function(id) {
+      this.$emit("onProductSelected", { id, culture: this.culture });
     }
   }
 };
@@ -51,7 +42,7 @@ export default {
 .cards {
   width: 100%;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   column-gap: 10px;
   row-gap: 10px;
   flex-wrap: wrap;

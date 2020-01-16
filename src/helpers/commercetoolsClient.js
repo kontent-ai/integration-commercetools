@@ -55,6 +55,11 @@ export default class commercetoolsClient {
     return await this.getResponse(url);
   }
 
+  async getProductByID({ id, staged = true }) {
+    const url = `${this.apiUrl}/${this.project}/product-projections/${id}?staged=${staged}`;
+    return await this.getResponse(url);
+  }
+
   async getResponse(url) {
     const axiosRequestConfig = await this.getAxiosRequestConfig();
     const response = await axios.get(url, axiosRequestConfig);

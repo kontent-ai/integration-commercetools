@@ -1,10 +1,9 @@
 <template>
   <div class="preview">
     <ProductCard
-      v-if="productProjection"
-      :productKey="product.key"
-      :name="product.name"
-      :image="product.image"
+      v-if="product"
+      :product="product"
+      :culture="culture"
       :hoverEnabled="!disabled"
     >
       <button class="btn btn--primary" @click="clearSelection">
@@ -20,7 +19,6 @@
 <script>
 import { logEvent } from "../globalEventBus";
 import ProductCard from "./ProductCard";
-import { simplifyProductProjection } from "../helpers/commercetools";
 
 export default {
   components: {
@@ -42,17 +40,11 @@ export default {
     }
   },
   data: () => ({
-    productProjection: null
+    product: null
   }),
   computed: {
     culture: function() {
       return this.value && this.value.culture ? this.value.culture : null;
-    },
-    product: function() {
-      if (this.value) {
-        return simplifyProductProjection(this.productProjection, this.culture);
-      }
-      return null;
     }
   },
   watch: {
@@ -63,19 +55,20 @@ export default {
   },
   methods: {
     getCurrentProduct: async function() {
-      if (this.value && this.value.key) {
-        logEvent(`Getting product projection for "${this.value.key}"`);
-        const productProjection = await this.commercetoolsClient.getProductByKey(
-          {
-            key: this.value.key
-          }
-        );
-        logEvent(`Got product projection for "${this.key}"`, productProjection);
-        this.productProjection = productProjection;
+      if (this.value && this.value.id) {
+        logEvent(`Getting product projection for "${this.value.id}"`);
+
+        const product = await this.commercetoolsClient.getProductByID({
+          id: this.value.id
+        });
+
+        logEvent(`Got product projection for "${this.value.id}"`, product);
+
+        this.product = product;
       }
     },
     clearSelection() {
-      this.productProjection = null;
+      this.product = null;
       this.$emit("onClearSelection");
     }
   }
