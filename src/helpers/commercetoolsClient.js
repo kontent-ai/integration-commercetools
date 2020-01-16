@@ -34,6 +34,11 @@ export default class commercetoolsClient {
     };
   }
 
+  async getProject() {
+    const url = `${this.apiUrl}/${this.project}`;
+    return await this.getResponse(url);
+  }
+
   async searchProducts({
     text,
     staged = true,

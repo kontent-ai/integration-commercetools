@@ -4,8 +4,10 @@
       v-if="!value && !element.disabled"
       :commercetoolsClient="commercetoolsClient"
       @onProductSelected="save"
+      defaultCulture="en-US"
     />
     <PreviewValue
+      v-if="value"
       :value="value"
       :disabled="element.disabled"
       :commercetoolsClient="commercetoolsClient"
@@ -38,6 +40,18 @@ export default {
   data: () => ({
     commercetoolsClient: null
   }),
+  computed: {
+    defaultCulture: function() {
+      const configAvailable =
+        this.element &&
+        this.element.config &&
+        this.element.config.commercetools &&
+        this.element.config.commercetools.defaultCulture;
+      return configAvailable
+        ? this.element.config.commercetools.defaultCulture
+        : null;
+    }
+  },
   methods: {
     reset: function() {
       this.save(null);

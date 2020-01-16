@@ -9,7 +9,11 @@
             placeholder="Search commercetools"
             v-model="searchText"
           />
-          <select class="form__dropdown" v-model="culture">
+          <select
+            class="form__dropdown"
+            v-model="culture"
+            :disabled="cultures.length < 2"
+          >
             <option v-for="culture in cultures" :key="culture">{{
               culture
             }}</option>
@@ -30,7 +34,7 @@
         @onProductSelected="selectProduct"
       />
 
-      <div class="paging">
+      <div class="paging" v-if="pages > 1">
         <button
           class="btn btn--secondary btn--xs"
           :disabled="page === 1"
@@ -68,20 +72,26 @@ export default {
       type: Number,
       required: false,
       default: 3
+    },
+    defaultCulture: {
+      type: String,
+      required: true
     }
   },
   data: () => ({
-    cultures: ["en-US", "de-DE"],
-    culture: "en-US",
+    cultures: [],
+    culture: "",
     searchText: "",
     pagedQueryResult: null,
     page: 1
   }),
   computed: {
     pages: function() {
-      return Math.ceil(
+      var totalPages = Math.ceil(
         this.pagedQueryResult.total / this.pagedQueryResult.limit
       );
+
+      return Math.max(totalPages, 1);
     }
   },
   methods: {
@@ -109,7 +119,18 @@ export default {
     },
     search: function() {
       this.getSearchPage(1);
+    },
+    loadLanguages: function() {
+      this.commercetoolsClient.getProject().then(projectDetails => {
+        logEvent("Got project details", projectDetails);
+        this.cultures = projectDetails.languages;
+      });
     }
+  },
+  created: function() {
+    this.culture = this.defaultCulture;
+    this.cultures.push(this.defaultCulture);
+    this.loadLanguages();
   }
 };
 </script>
