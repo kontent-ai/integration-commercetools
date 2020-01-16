@@ -5,10 +5,8 @@
       :key="result.id"
       :product="result"
       :culture="culture"
+      @onProductSelected="selectProduct"
     >
-      <button class="btn btn--primary" @click="selectProduct(result.id)">
-        <i class="icon-add"></i>&nbsp;Select product
-      </button>
     </ProductCard>
   </div>
 </template>
@@ -31,8 +29,8 @@ export default {
     }
   },
   methods: {
-    selectProduct: function(id) {
-      this.$emit("onProductSelected", { id, culture: this.culture });
+    selectProduct: function(payload) {
+      this.$emit("onProductSelected", payload);
     }
   }
 };

@@ -3,13 +3,10 @@
     <ProductCard
       v-if="product"
       :product="product"
+      :variantId="variantId"
       :culture="culture"
-      :hoverEnabled="!disabled"
-    >
-      <button class="btn btn--primary" @click="clearSelection">
-        <i class="icon-remove"></i>&nbsp;Clear Selection
-      </button>
-    </ProductCard>
+      @onProductCleared="clearProduct"
+    />
     <div v-else-if="disabled">
       No product selected.
     </div>
@@ -45,6 +42,9 @@ export default {
   computed: {
     culture: function() {
       return this.value && this.value.culture ? this.value.culture : null;
+    },
+    variantId: function() {
+      return this.value && this.value.variantId ? this.value.variantId : null;
     }
   },
   watch: {
@@ -67,9 +67,9 @@ export default {
         this.product = product;
       }
     },
-    clearSelection() {
+    clearProduct() {
       this.product = null;
-      this.$emit("onClearSelection");
+      this.$emit("onProductCleared");
     }
   }
 };

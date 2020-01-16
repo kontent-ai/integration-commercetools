@@ -11,7 +11,7 @@
       :value="value"
       :disabled="element.disabled"
       :commercetoolsClient="commercetoolsClient"
-      @onClearSelection="reset"
+      @onProductCleared="reset"
     />
   </div>
 </template>

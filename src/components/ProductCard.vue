@@ -1,9 +1,5 @@
 <template>
   <article class="card">
-    <div v-if="hoverEnabled" class="card__info-hover-bg"></div>
-    <div v-if="hoverEnabled" class="card__info-hover">
-      <slot></slot>
-    </div>
     <div class="card__img">
       <img v-if="image" :src="image" />
     </div>
@@ -17,9 +13,30 @@
         SKU:
         {{ selectedVariant.sku }}
       </p>
-      <p class="card__detail">
+      <p v-if="!variantId && product.variants.length > 0" class="card__detail">
         Additional variants: {{ product.variants.length }}
       </p>
+      <div v-if="!variantId">
+        <select
+          class="form__dropdown"
+          v-if="product.variants.length > 0"
+          v-model="selectedVariantId"
+        >
+          <option :value="product.masterVariant.id">Master</option>
+          <option
+            v-for="variant in product.variants"
+            :key="variant.id"
+            :value="variant.id"
+            >Variant {{ variant.id }}</option
+          >
+        </select>
+        <button class="btn btn--primary" @click="selectProduct">
+          Select
+        </button>
+      </div>
+      <button v-if="variantId" class="btn btn--primary" @click="clearProduct">
+        Clear
+      </button>
     </div>
   </article>
 </template>
@@ -32,19 +49,27 @@ export default {
       type: Object,
       required: true
     },
-    hoverEnabled: {
-      type: Boolean,
-      required: false,
-      default: true
+    variantId: {
+      type: Number,
+      required: false
     },
     culture: {
       type: String,
       required: true
     }
   },
+  data: () => ({
+    selectedVariantId: -1
+  }),
   computed: {
     selectedVariant: function() {
-      return this.product.masterVariant;
+      if (this.product.masterVariant.id == this.selectedVariantId) {
+        return this.product.masterVariant;
+      } else {
+        return this.product.variants.filter(
+          variant => variant.id === this.selectedVariantId
+        )[0];
+      }
     },
     image: function() {
       const imageExists =
@@ -57,6 +82,23 @@ export default {
     name: function() {
       return getLocalizedProperty(this.product, "name", this.culture);
     }
+  },
+  methods: {
+    selectProduct: function() {
+      this.$emit("onProductSelected", {
+        id: this.product.id,
+        variantId: this.selectedVariantId,
+        culture: this.culture
+      });
+    },
+    clearProduct: function() {
+      this.$emit("onProductCleared");
+    }
+  },
+  created: function() {
+    this.selectedVariantId = this.variantId
+      ? this.variantId
+      : this.product.masterVariant.id;
   }
 };
 </script>
