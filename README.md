@@ -9,9 +9,11 @@ This [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/i
   - Select a single product (or one of it's variants)
 - Optional debug panel for diagnostics
 
+<!--
 ## Quick testing
 
 If you're interested in trying this out without deploying it yourself, you can use <https://YOUR_PUBLICLY_DEPLOYED_URL/>. This is the deployed version of the master branch in this repo. **This should only be used for quick testing as it is subject to change**
+-->
 
 ## Deploying
 
