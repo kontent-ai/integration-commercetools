@@ -9,6 +9,10 @@ This [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/i
   - Select a single product (or one of it's variants)
 - Optional debug panel for diagnostics
 
+## Demo
+
+![Demo Animation](../assets/commercetools-demo.gif?raw=true)
+
 <!--
 ## Quick testing
 
