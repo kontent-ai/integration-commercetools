@@ -63,7 +63,7 @@ The custom element will store the selected product's information in the followin
 ```json
 {
   "id": "<GUID_OF_PRODUCT>",
-  "variantId": <Varian_ID>,
+  "variantId": <Variant_ID>,
   "culture": "<IETF_LANGUAGE_TAG>"
 }
 ```
