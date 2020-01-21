@@ -19,7 +19,7 @@ Netlify has made this easy. If you click the deploy button below, it will guide 
 
 ***UPDATE THE REPO URL IN THE DEPLOY BUTTON TO YOUR REPO URL***
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ChristopherJennings/kontent-custom-element-commercetools)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Kentico/kontent-custom-element-commercetools)
 
 ## Configuring the Custom Element
 
