@@ -1,10 +1,12 @@
 # Kentico Kontent Custom Element: commercetools
 
-This [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features) for [Kentico Kontent](https://kontent.ai) gives editors a way to INSERT PURPOSE.
+This [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features) for [Kentico Kontent](https://kontent.ai) gives editors a way to select products from commercetools.
 
 ## Features
 
-- Editors can ...
+- Editors can...
+  - Search for products in all languages in the commercetools project
+  - Select a single product (or one of it's variants)
 - Optional debug panel for diagnostics
 
 ## Quick testing
@@ -27,15 +29,42 @@ The JSON parameters required as as follows:
 
 | Name     | Type   | Description |
 | -------- | ------ | ----------- |
-| someSetting | string | This is an example setting that you want to document. |
 | debug    | boolean | (Optional) If present and set to true the debug panel will activate when editing a content item. |
+| commercetools | object | This contains all the details required to connect to the [commercetools API](https://docs.commercetools.com/http-api). The values for this object will be derived from an API client that you configure in commercetools with the exception of the `defaultCulture`. When generating the API client, be sure to select the `view_products` and `view_project_settings` scopes. |
+| commercetools.defaultCulture | string | Set this to the IETF language tag of the language in commercetools to use by default for search. |
+| commercetools.project | string | This is the commercetools project key. |
+| commercetools.clientId | string | This is the commercetools API client ID. |
+| commercetools.clientSecret | string | This is the commercetools API client secret. |
+| commercetools.oauthUrl | string | This is the base URL to use for authenticating with commercetools. |
+| commercetools.apiUrl | string | This is the base URL to use for commercetools API calls. |
+| commercetools.scope | string | This is the list of scopes that the client has. This should include the `view_products` and `view_project_settings` scopes. |
 
 Sample parameters JSON:
 
 ```json
 {
-  "someSetting": "<CUSTOM_VALUE>",
-  "debug": true
+    "debug": true,
+    "commercetools": {
+        "defaultCulture": "en",
+        "project": "your-project",
+        "clientId": "your-client-id",
+        "clientSecret": "your-client-secret",
+        "oauthUrl": "https://auth.sphere.io",
+        "apiUrl": "https://api.sphere.io",
+        "scope": "view_products:your-project view_project_settings:your-project"
+    }
+}
+```
+
+## Values saved
+
+The custom element will store the selected product's information in the following format:
+
+```json
+{
+  "id": "<GUID_OF_PRODUCT>",
+  "variantId": <Varian_ID>,
+  "culture": "<IETF_LANGUAGE_TAG>"
 }
 ```
 
