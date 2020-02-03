@@ -101,3 +101,9 @@ npm run lint
 ### Customize Vue CLI configuration
 
 See [Vue CLI Configuration Reference](https://cli.vuejs.org/config/).
+
+
+## Contributors
+
+Originally contributed by [@ChristopherJennings](https://github.com/christopherjennings)
+
