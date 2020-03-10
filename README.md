@@ -107,4 +107,4 @@ See [Vue CLI Configuration Reference](https://cli.vuejs.org/config/).
 
 Originally contributed by [@ChristopherJennings](https://github.com/christopherjennings)
 
-![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/kontent-custom-element-commercetools?pixel
+![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/kontent-custom-element-commercetools?pixel)
