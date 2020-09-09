@@ -1,16 +1,11 @@
 <template>
-  <div class="preview">
-    <ProductCard
-      v-if="product"
-      :product="product"
-      :variantId="variantId"
-      :culture="culture"
-      @onProductCleared="clearProduct"
-    />
-    <div v-else-if="disabled">
-      No product selected.
-    </div>
-  </div>
+  <ProductCard
+    v-if="product"
+    :product="product"
+    :variantId="variantId"
+    :culture="culture"
+    @onProductCleared="clearProduct"
+  />
 </template>
 
 <script>
@@ -31,6 +26,11 @@ export default {
       validator: prop => typeof prop === "object" || prop === null
     },
     disabled: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    multiSelect: {
       type: Boolean,
       required: false,
       default: false
@@ -68,19 +68,8 @@ export default {
       }
     },
     clearProduct() {
-      this.product = null;
-      this.$emit("onProductCleared");
+      this.$emit("onProductCleared", this.value.id);
     }
   }
 };
 </script>
-
-<style scoped>
-.preview {
-  width: 100%;
-  display: flex;
-  display: -webkit-flex;
-  justify-content: center;
-  -webkit-justify-content: center;
-}
-</style>
