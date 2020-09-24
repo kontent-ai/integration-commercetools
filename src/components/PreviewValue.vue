@@ -74,7 +74,11 @@ export default {
 
           this.product = {
             name: "NOT FOUND",
-            variants: []
+            variants: [],
+            masterVariant: {
+              id: 1,
+              images: []
+            }
           };
         }
       }
