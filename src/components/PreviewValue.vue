@@ -73,7 +73,7 @@ export default {
           );
 
           this.product = {
-            name: "NOT FOUND",
+            name: { "en-US": "NOT FOUND" },
             variants: [],
             masterVariant: {
               id: 1,
