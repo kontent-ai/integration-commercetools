@@ -78,7 +78,6 @@ export default {
       this.updateSize();
     },
     save: function(value) {
-
       // Explicitly using == to match both null and undefined
       const toSave = value == null ? null : JSON.stringify(value);
       this.element.value = toSave;
