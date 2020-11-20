@@ -1,38 +1,31 @@
 <template>
   <div class="wrapper">
     <ProductSearch
-      v-if="(!value || multiSelect) && !element.disabled"
+      v-if="(!value || value.length == 0 || multiSelect) && !element.disabled"
       :commercetoolsClient="commercetoolsClient"
       @onProductSelected="save"
       :defaultCulture="defaultCulture"
     />
-    <div class="preview" v-if="value && !multiSelect">
-      <PreviewValue
+    <div class="preview" v-if="value">
+      <PreviewValueList
+        v-if="value"
         :value="value"
         :disabled="element.disabled"
-        :multiSelect="true"
+        :multiSelect="multiSelect"
         :commercetoolsClient="commercetoolsClient"
         @onProductCleared="reset"
       />
     </div>
-    <PreviewValueList
-      v-if="value && multiSelect"
-      :value="value"
-      :commercetoolsClient="commercetoolsClient"
-      @onProductCleared="reset"
-    />
   </div>
 </template>
 
 <script>
 import commercetoolsClient from "../helpers/commercetoolsClient";
-import PreviewValue from "./PreviewValue";
 import PreviewValueList from "./PreviewValueList";
 import ProductSearch from "./ProductSearch";
 
 export default {
   components: {
-    PreviewValue,
     ProductSearch,
     PreviewValueList
   },
@@ -64,27 +57,24 @@ export default {
     multiSelect: function() {
       const configAvailable =
         this.element && this.element.config && this.element.config.multiSelect;
-      return configAvailable ? this.element.config.multiSelect : null;
+      return configAvailable ? this.element.config.multiSelect : false;
     }
   },
   methods: {
     reset: function(value) {
-      if (this.multiSelect) {
-        let newValue = this.value ? this.value.filter(x => x.id !== value) : [];
+      let newValue = this.value ? this.value.filter(x => x.id !== value) : [];
 
-        this.$emit("update:value", newValue);
-      } else {
-        this.save(null);
-      }
+      this.$emit("update:value", newValue);
     },
     save: function(value) {
       if (this.element && !this.element.disabled) {
-        if (this.multiSelect) {
-          let newValue = this.value ? [...this.value, value] : [value];
-          this.$emit("update:value", newValue);
-        } else {
-          this.$emit("update:value", value);
-        }
+        const newValue = this.multiSelect
+          ? this.value
+            ? [...this.value, value]
+            : [value]
+          : [value];
+
+        this.$emit("update:value", newValue);
       }
     }
   },

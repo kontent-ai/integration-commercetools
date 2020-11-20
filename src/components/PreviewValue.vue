@@ -4,6 +4,7 @@
     :product="product"
     :variantId="variantId"
     :culture="culture"
+    :disabled="disabled"
     @onProductCleared="clearProduct"
   />
 </template>
@@ -26,11 +27,6 @@ export default {
       validator: prop => typeof prop === "object" || prop === null
     },
     disabled: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    multiSelect: {
       type: Boolean,
       required: false,
       default: false

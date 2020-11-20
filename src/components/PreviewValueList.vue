@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h3>
+  <div class="wrapper">
+    <h3 v-if="multiSelect">
       {{ value.length }} product{{ value.length === 1 ? "" : "s" }} selected
     </h3>
 
@@ -9,8 +9,8 @@
         v-for="product in value"
         :key="product.id"
         :value="product"
-        :multiSelect="true"
         :commercetoolsClient="commercetoolsClient"
+        :disabled="disabled"
         @onProductCleared="clearProduct"
       >
       </PreviewValue>
@@ -33,6 +33,16 @@ export default {
     commercetoolsClient: {
       type: Object,
       required: false
+    },
+    multiSelect: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   methods: {
@@ -51,5 +61,9 @@ export default {
   column-gap: 10px;
   row-gap: 10px;
   flex-wrap: wrap;
+}
+
+.wrapper {
+  width: 100%;
 }
 </style>
