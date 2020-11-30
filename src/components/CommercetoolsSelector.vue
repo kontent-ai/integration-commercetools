@@ -68,6 +68,11 @@ export default {
     },
     save: function(value) {
       if (this.element && !this.element.disabled) {
+        // Allow the same product to be only selected once
+        if (this.value && this.value.some(x => x.id === value.id)) {
+          return;
+        }
+
         const newValue = this.multiSelect
           ? this.value
             ? [...this.value, value]
