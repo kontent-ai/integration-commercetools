@@ -36,7 +36,7 @@
       </button>
     </div>
 
-    <div class="card__actions" v-if="variantId">
+    <div class="card__actions" v-if="variantId && !disabled">
       <button class="btn btn--primary" @click="clearProduct">
         Clear
       </button>
@@ -59,6 +59,11 @@ export default {
     culture: {
       type: String,
       required: true
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data: () => ({

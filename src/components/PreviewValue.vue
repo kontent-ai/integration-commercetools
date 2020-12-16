@@ -1,16 +1,12 @@
 <template>
-  <div class="preview">
-    <ProductCard
-      v-if="product"
-      :product="product"
-      :variantId="variantId"
-      :culture="culture"
-      @onProductCleared="clearProduct"
-    />
-    <div v-else-if="disabled">
-      No product selected.
-    </div>
-  </div>
+  <ProductCard
+    v-if="product"
+    :product="product"
+    :variantId="variantId"
+    :culture="culture"
+    :disabled="disabled"
+    @onProductCleared="clearProduct"
+  />
 </template>
 
 <script>
@@ -56,31 +52,36 @@ export default {
   methods: {
     getCurrentProduct: async function() {
       if (this.value && this.value.id) {
-        logEvent(`Getting product projection for "${this.value.id}"`);
+        try {
+          logEvent(`Getting product projection for "${this.value.id}"`);
 
-        const product = await this.commercetoolsClient.getProductByID({
-          id: this.value.id
-        });
+          const product = await this.commercetoolsClient.getProductByID({
+            id: this.value.id
+          });
 
-        logEvent(`Got product projection for "${this.value.id}"`, product);
+          logEvent(`Got product projection for "${this.value.id}"`, product);
 
-        this.product = product;
+          this.product = product;
+        } catch (e) {
+          logEvent(
+            `Error while getting product projection for "${this.value.id}"`,
+            e
+          );
+
+          this.product = {
+            name: { "en-US": "NOT FOUND" },
+            variants: [],
+            masterVariant: {
+              id: 1,
+              images: []
+            }
+          };
+        }
       }
     },
     clearProduct() {
-      this.product = null;
-      this.$emit("onProductCleared");
+      this.$emit("onProductCleared", this.value.id);
     }
   }
 };
 </script>
-
-<style scoped>
-.preview {
-  width: 100%;
-  display: flex;
-  display: -webkit-flex;
-  justify-content: center;
-  -webkit-justify-content: center;
-}
-</style>

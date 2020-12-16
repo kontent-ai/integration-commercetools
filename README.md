@@ -7,6 +7,7 @@ This [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/i
 - Editors can...
   - Search for products in all languages in the commercetools project
   - Select a single product (or one of it's variants)
+  - Select multiple products (or their variants)
 - Optional debug panel for diagnostics
 
 ## Demo
@@ -34,6 +35,7 @@ The JSON parameters required as as follows:
 | Name     | Type   | Description |
 | -------- | ------ | ----------- |
 | debug    | boolean | (Optional) If present and set to true the debug panel will activate when editing a content item. |
+| multiSelect  | boolean | If set to true, it will be possible to select multiple products. If set to false, it will be possible to only select a single product |
 | commercetools | object | This contains all the details required to connect to the [commercetools API](https://docs.commercetools.com/http-api). The values for this object will be derived from an API client that you configure in commercetools with the exception of the `defaultCulture`. When generating the API client, be sure to select the `view_products` and `view_project_settings` scopes. |
 | commercetools.defaultCulture | string | Set this to the IETF language tag of the language in commercetools to use by default for search. |
 | commercetools.project | string | This is the commercetools project key. |
@@ -48,6 +50,7 @@ Sample parameters JSON:
 ```json
 {
     "debug": true,
+    "multiSelect": true,
     "commercetools": {
         "defaultCulture": "en",
         "project": "your-project",
@@ -62,7 +65,7 @@ Sample parameters JSON:
 
 ## Values saved
 
-The custom element will store the selected product's information in the following format:
+The custom element will store the selected product's information in the following format (In an array):
 
 ```json
 {
