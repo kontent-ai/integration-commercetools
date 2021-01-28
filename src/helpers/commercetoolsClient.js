@@ -2,12 +2,12 @@ import axios from "axios";
 
 export default class commercetoolsClient {
   constructor(options) {
-    this.project = options.project;
+    this.projectKey = options.projectKey;
     this.clientId = options.clientId;
-    this.clientSecret = options.clientSecret;
-    this.oauthUrl = options.oauthUrl;
-    this.apiUrl = options.apiUrl;
+    this.secret = options.secret;
     this.scope = options.scope;
+    this.apiUrl = options.apiUrl;
+    this.oauthUrl = options.oauthUrl;
     this.defaultCulture = options.defaultCulture;
     this._tokenDetails = options.tokenDetails;
   }
@@ -18,7 +18,7 @@ export default class commercetoolsClient {
       const response = await axios.post(url, null, {
         auth: {
           username: this.clientId,
-          password: this.clientSecret
+          password: this.secret
         }
       });
       this._tokenDetails = response.data;
@@ -35,7 +35,7 @@ export default class commercetoolsClient {
   }
 
   async getProject() {
-    const url = `${this.apiUrl}/${this.project}`;
+    const url = `${this.apiUrl}/${this.projectKey}`;
     return await this.getResponse(url);
   }
 
@@ -46,17 +46,17 @@ export default class commercetoolsClient {
     culture = this.defaultCulture,
     offset = 0
   }) {
-    const url = `${this.apiUrl}/${this.project}/product-projections/search?staged=${staged}&limit=${limit}&offset=${offset}&text.${culture}="${text}"`;
+    const url = `${this.apiUrl}/${this.projectKey}/product-projections/search?staged=${staged}&limit=${limit}&offset=${offset}&text.${culture}="${text}"`;
     return await this.getResponse(url);
   }
 
   async getProductByKey({ key, staged = true }) {
-    const url = `${this.apiUrl}/${this.project}/product-projections/key=${key}?staged=${staged}`;
+    const url = `${this.apiUrl}/${this.projectKey}/product-projections/key=${key}?staged=${staged}`;
     return await this.getResponse(url);
   }
 
   async getProductByID({ id, staged = true }) {
-    const url = `${this.apiUrl}/${this.project}/product-projections/${id}?staged=${staged}`;
+    const url = `${this.apiUrl}/${this.projectKey}/product-projections/${id}?staged=${staged}`;
     return await this.getResponse(url);
   }
 
