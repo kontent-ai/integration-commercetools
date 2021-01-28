@@ -1,4 +1,4 @@
-![Core integration][core-shield]
+[![Core integration][core-shield]](https://kontent.ai/integrations/commercetools)
 
 ![Last modified][last-commit]
 [![Issues][issues-shield]][issues-url]
@@ -26,7 +26,7 @@ alt="commercetools logo" width="300">
 
 This [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features) extension for [Kentico Kontent](https://kontent.ai) allows users to search and link selected products from [commercetools](https://commercetools.com) into their structured content.
 
-# Features
+## Features
 
 - Editors can
   - Search for products in the commercetools project in all languages
@@ -35,21 +35,21 @@ This [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/i
 
 The element also offers an optional debug panel for diagnostics.
 
-# Demo
+## Demo
 
 ![Demo Animation][product-demo]
 
-# Quick Deploy
+## Quick Deploy
 
 Netlify has made this easy. If you click the deploy button below, it will guide you through the process of deploying it to Netlify and leave you with a copy of the repository in your account as well.
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Kentico/kontent-custom-element-commercetools)
 
 
-# Commercetools setup
+## Commercetools setup
 In order to use this custom element extension with your commercetools account, you'll need to setup the integration in your [Merchant Center](https://mc.commercetools.com/). 
 
-## Adding a new API client
+### Adding a new API client
 - The custom element will be connecting to your commercetools account and searching for products to include into your Kontent. In order to setup this communication, a new API client has to be created under **Settings** -> **Developer settings** -> **Create new API client**.
 
 ![Add new Api client](docs/commercetools-setup-1.png)
@@ -74,7 +74,7 @@ In order to use this custom element extension with your commercetools account, y
 
 - Once you configure your custom element with the generated credentials, you can close the credentials window and confirm, that your API client has been successfully created.
 
-# Configuring the Custom Element
+## Configuring the Custom Element
 
 You will need to add the custom element to a content type filling in the hosted code URL and the following JSON parameters:
 
@@ -110,7 +110,7 @@ Sample parameters JSON:
 }
 ```
 
-# What is Saved
+## What is Saved
 
 The custom element will store the selected product's information in the following format:
 
@@ -124,7 +124,7 @@ The custom element will store the selected product's information in the followin
 
 This value will be accessible though the [Kontent's Delivery API](https://docs.kontent.ai/reference/delivery-api) once the content item, containing the custom element, will be saved (through preview), or published (production).
 
-# Developing
+## Developing
 
 #### 
 
@@ -132,34 +132,34 @@ This value will be accessible though the [Kontent's Delivery API](https://docs.k
 # Initial project setup
 $ npm install
 
-#Compile and hot-reload for development
+# Compile and hot-reload for development
 $ npm run serve
 
-#Compile and minifie for production
+# Compile and minifie for production
 $ npm run build
 
-#Lint and fix files
+# Lint and fix files
 $ npm run lint
 ```
 
 
-## Customize Vue CLI configuration
+### Customize Vue CLI configuration
 
 See [Vue CLI Configuration Reference](https://cli.vuejs.org/config/).
 
 
-# Contributors
+## Contributors
 We have collected notes on how to contribute to this project in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 <a href="https://github.com/Kentico/kontent-custom-element-commercetools/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Kentico/kontent-custom-element-commercetools" />
 </a>
 
-# License
+## License
 
 [MIT](https://tldrlegal.com/license/mit-license)
 
-# Additional Resources
+## Additional Resources
 
 - [Custom Element Gallery on github](https://kentico.github.io/kontent-custom-element-samples/gallery/)
 - [Kentico Kontent's Integration documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrations-overview)

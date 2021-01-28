@@ -3,12 +3,12 @@
     <form @submit.prevent="search">
       <fieldset>
         <div class="search__query-box">
-          <img src="/commercetools_primary-logo_horizontal_RGB.png" width="150" />
           <input class="text-field__input" type="text" placeholder="Search products" v-model="searchText" />
           <select class="form__dropdown" v-model="culture" :disabled="cultures.length < 2">
             <option v-for="culture in cultures" :key="culture">{{ culture }}</option>
           </select>
           <button class="btn btn--primary" type="submit">Search</button>
+          <img src="/commercetools_primary-logo_horizontal_RGB.png" width="150" />
         </div>
       </fieldset>
     </form>
