@@ -1,36 +1,83 @@
-# Kentico Kontent Custom Element: commercetools
+[![Core integration][core-shield]](https://kontent.ai/integrations/commercetools)
 
-This [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features) for [Kentico Kontent](https://kontent.ai) gives editors a way to select products from commercetools.
+![Last modified][last-commit]
+[![Issues][issues-shield]][issues-url]
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![MIT License][license-shield]][license-url]
+
+<p align="center">
+<image src="docs/01-kk-logo-main.svg" alt="kontent logo" width="300" />
+<image src="docs/1.commercetools_primary-logo_horizontal_RGB.png" 
+alt="commercetools logo" width="300">
+</p>
+
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#demo">Demo</a> •
+  <a href="#quick-deploy">Deploy</a> •
+  <a href="#configuring-the-custom-element">Configuration</a> •
+  <a href="#what-is-saved">Saved value</a> •
+  <a href="#developing">Developing</a> •
+  <a href="#contributors">Contributors</a> •
+  <a href="#licence">Licence</a> •
+  <a href="#additional-resources">Resources</a>
+</p>
+
+This [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features) extension for [Kentico Kontent](https://kontent.ai) allows users to search and link selected products from [commercetools](https://commercetools.com) into their structured content.
 
 ## Features
 
-- Editors can...
-  - Search for products in all languages in the commercetools project
+- Editors can
+  - Search for products in the commercetools project in all languages
   - Select a single product (or one of it's variants)
   - Select multiple products (or their variants)
-- Optional debug panel for diagnostics
+
+The element also offers an optional debug panel for diagnostics.
 
 ## Demo
 
-![Demo Animation](../assets/commercetools-demo.gif?raw=true)
+![Demo Animation][product-demo]
 
-<!--
-## Quick testing
-
-If you're interested in trying this out without deploying it yourself, you can use <https://YOUR_PUBLICLY_DEPLOYED_URL/>. This is the deployed version of the master branch in this repo. **This should only be used for quick testing as it is subject to change**
--->
-
-## Deploying
+## Quick Deploy
 
 Netlify has made this easy. If you click the deploy button below, it will guide you through the process of deploying it to Netlify and leave you with a copy of the repository in your account as well.
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Kentico/kontent-custom-element-commercetools)
 
+
+## Commercetools setup
+In order to use this custom element extension with your commercetools account, you'll need to setup the integration in your [Merchant Center](https://mc.commercetools.com/). 
+
+### Adding a new API client
+- The custom element will be connecting to your commercetools account and searching for products to include into your Kontent. In order to setup this communication, a new API client has to be created under **Settings** -> **Developer settings** -> **Create new API client**.
+
+![Add new Api client](docs/commercetools-setup-1.png)
+
+- Next, a dialog for your Kentico Kontent API client will be opened. Fill out the **Name** input field and under **Scopes** select **Products(all)** and **Project Settings** under the **View** category. This will give the extension a read-only access to your product list so it can be searched through while linking products to your content in Kentico Kontent. 
+- After your scopes and client name has been put in, click the **Create API client** button in the top right of the screen.
+
+![Create new Api client](docs/commercetools-setup-2.png)
+
+- All of the important information you'll need to setup the custom element will be right in front of you. 
+
+![Api client settings](docs/commercetools-setup-3.png)
+
+- Copy all of the generated credentials as these will be needed for the custom element setup that takes place inside of the Kentico Kontent application. The [following section](#configuring-the-custom-element) describes each of the generated settings and shows you, how to create the final configuration object for your element. 
+
+
+> **⚠ WARNING: You won't be able to access the credentials screen once you close it.**
+> Be sure to copy and place all of the generated credentials into your custom element configuration, otherwise, you'll be forced to re-create the API client. 
+
+
+![Created Api client](docs/commercetools-setup-4.png)
+
+- Once you configure your custom element with the generated credentials, you can close the credentials window and confirm, that your API client has been successfully created.
+
 ## Configuring the Custom Element
 
-You will need to add the custom element to a content type filling in the hosted code URL and the JSON parameters (see below for details).
+You will need to add the custom element to a content type filling in the hosted code URL and the following JSON parameters:
 
-The JSON parameters required as as follows:
 
 | Name     | Type   | Description |
 | -------- | ------ | ----------- |
@@ -38,9 +85,9 @@ The JSON parameters required as as follows:
 | multiSelect  | boolean | If set to true, it will be possible to select multiple products. If set to false, it will be possible to only select a single product |
 | commercetools | object | This contains all the details required to connect to the [commercetools API](https://docs.commercetools.com/http-api). The values for this object will be derived from an API client that you configure in commercetools with the exception of the `defaultCulture`. When generating the API client, be sure to select the `view_products` and `view_project_settings` scopes. |
 | commercetools.defaultCulture | string | Set this to the IETF language tag of the language in commercetools to use by default for search. |
-| commercetools.project | string | This is the commercetools project key. |
+| commercetools.projectKey | string | This is the commercetools project key. |
 | commercetools.clientId | string | This is the commercetools API client ID. |
-| commercetools.clientSecret | string | This is the commercetools API client secret. |
+| commercetools.secret | string | This is the commercetools API client secret. |
 | commercetools.oauthUrl | string | This is the base URL to use for authenticating with commercetools. |
 | commercetools.apiUrl | string | This is the base URL to use for commercetools API calls. |
 | commercetools.scope | string | This is the list of scopes that the client has. This should include the `view_products` and `view_project_settings` scopes. |
@@ -53,9 +100,9 @@ Sample parameters JSON:
     "multiSelect": true,
     "commercetools": {
         "defaultCulture": "en",
-        "project": "your-project",
+        "projectKey": "your-project",
         "clientId": "your-client-id",
-        "clientSecret": "your-client-secret",
+        "secret": "your-client-secret",
         "oauthUrl": "https://auth.sphere.io",
         "apiUrl": "https://api.sphere.io",
         "scope": "view_products:your-project view_project_settings:your-project"
@@ -63,43 +110,38 @@ Sample parameters JSON:
 }
 ```
 
-## Values saved
+## What is Saved
 
-The custom element will store the selected product's information in the following format (In an array):
+The custom element will store the selected product's information in the following format:
 
 ```json
-{
+[{
   "id": "<GUID_OF_PRODUCT>",
-  "variantId": <Variant_ID>,
+  "variantId": "<Variant_ID>",
   "culture": "<IETF_LANGUAGE_TAG>"
-}
+}]
 ```
+
+This value will be accessible though the [Kontent's Delivery API](https://docs.kontent.ai/reference/delivery-api) once the content item, containing the custom element, will be saved (through preview), or published (production).
 
 ## Developing
 
-### Initial project setup
+#### 
 
-```console
-npm install
+```bash
+# Initial project setup
+$ npm install
+
+# Compile and hot-reload for development
+$ npm run serve
+
+# Compile and minifie for production
+$ npm run build
+
+# Lint and fix files
+$ npm run lint
 ```
 
-### Compiles and hot-reloads for development
-
-```console
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```console
-npm run build
-```
-
-### Lints and fixes files
-
-```console
-npm run lint
-```
 
 ### Customize Vue CLI configuration
 
@@ -107,7 +149,37 @@ See [Vue CLI Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ## Contributors
+We have collected notes on how to contribute to this project in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Originally contributed by [@ChristopherJennings](https://github.com/christopherjennings)
+<a href="https://github.com/Kentico/kontent-custom-element-commercetools/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Kentico/kontent-custom-element-commercetools" />
+</a>
+
+## License
+
+[MIT](https://tldrlegal.com/license/mit-license)
+
+## Additional Resources
+
+- [Custom Element Gallery on github](https://kentico.github.io/kontent-custom-element-samples/gallery/)
+- [Kentico Kontent's Integration documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrations-overview)
+- [Custom Element documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/content-editing-extensions)
+- [Custom Element API reference](https://docs.kontent.ai/reference/custom-elements-js-api)
+
 
 ![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/kontent-custom-element-commercetools?pixel)
+
+
+[last-commit]: https://img.shields.io/github/last-commit/Kentico/kontent-custom-element-commercetools?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/Kentico/kontent-custom-element-commercetools.svg?style=for-the-badge
+[contributors-url]: https://github.com/Kentico/kontent-custom-element-commercetools/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Kentico/kontent-custom-element-commercetools.svg?style=for-the-badge
+[forks-url]: https://github.com/Kentico/kontent-custom-element-commercetools/network/members
+[stars-shield]: https://img.shields.io/github/stars/Kentico/kontent-custom-element-commercetools.svg?style=for-the-badge
+[stars-url]: https://github.com/Kentico/kontent-custom-element-commercetools/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Kentico/kontent-custom-element-commercetools.svg?style=for-the-badge
+[issues-url]: https://github.com/Kentico/kontent-custom-element-commercetools/issues
+[license-shield]: https://img.shields.io/github/license/Kentico/kontent-custom-element-commercetools.svg?style=for-the-badge
+[license-url]: https://github.com/Kentico/kontent-custom-element-commercetools/blob/master/LICENSE
+[core-shield]: https://img.shields.io/static/v1?label=&message=core%20integration&style=for-the-badge&color=FF5733
+[product-demo]: docs/commercetools-demo.gif?raw=true

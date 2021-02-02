@@ -18,28 +18,17 @@
       </p>
     </div>
     <div class="card__actions" v-if="!variantId">
-      <select
-        class="form__dropdown"
-        v-if="product.variants.length > 0"
-        v-model="selectedVariantId"
-      >
+      <select class="form__dropdown" v-if="product.variants.length > 0" v-model="selectedVariantId">
         <option :value="product.masterVariant.id">Master</option>
-        <option
-          v-for="variant in product.variants"
-          :key="variant.id"
-          :value="variant.id"
-          >Variant {{ variant.id }}</option
-        >
+        <option v-for="variant in product.variants" :key="variant.id" :value="variant.id">
+          Variant {{ variant.id }}
+        </option>
       </select>
-      <button class="btn btn--primary" @click="selectProduct">
-        Select
-      </button>
+      <button class="btn btn--primary" @click="selectProduct">Select</button>
     </div>
 
     <div class="card__actions" v-if="variantId && !disabled">
-      <button class="btn btn--primary" @click="clearProduct">
-        Clear
-      </button>
+      <button class="btn btn--primary" @click="clearProduct">Remove</button>
     </div>
   </article>
 </template>
@@ -50,64 +39,57 @@ export default {
   props: {
     product: {
       type: Object,
-      required: true
+      required: true,
     },
     variantId: {
       type: Number,
-      required: false
+      required: false,
     },
     culture: {
       type: String,
-      required: true
+      required: true,
     },
     disabled: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   data: () => ({
-    selectedVariantId: -1
+    selectedVariantId: -1,
   }),
   computed: {
-    selectedVariant: function() {
+    selectedVariant: function () {
       if (this.product.masterVariant.id == this.selectedVariantId) {
         return this.product.masterVariant;
       } else {
-        return this.product.variants.filter(
-          variant => variant.id === this.selectedVariantId
-        )[0];
+        return this.product.variants.filter((variant) => variant.id === this.selectedVariantId)[0];
       }
     },
-    image: function() {
-      const imageExists =
-        this.selectedVariant &&
-        this.selectedVariant &&
-        this.selectedVariant.images.length > 0;
+    image: function () {
+      const imageExists = this.selectedVariant && this.selectedVariant && this.selectedVariant.images.length > 0;
 
       return imageExists ? this.selectedVariant.images[0].url : "";
     },
-    name: function() {
+    name: function () {
       return getLocalizedProperty(this.product, "name", this.culture);
-    }
+    },
   },
   methods: {
-    selectProduct: function() {
+    selectProduct: function () {
       this.$emit("onProductSelected", {
         id: this.product.id,
         variantId: this.selectedVariantId,
-        culture: this.culture
+        culture: this.culture,
       });
     },
-    clearProduct: function() {
+    clearProduct: function () {
       this.$emit("onProductCleared");
-    }
+    },
   },
-  created: function() {
-    this.selectedVariantId = this.variantId
-      ? this.variantId
-      : this.product.masterVariant.id;
-  }
+  created: function () {
+    this.selectedVariantId = this.variantId ? this.variantId : this.product.masterVariant.id;
+  },
 };
 </script>
 

@@ -6,17 +6,8 @@
       </p>
     </Callout>
     <div v-if="loaded">
-      <CommercetoolsSelector
-        :element="element"
-        :context="context"
-        :value.sync="value"
-      />
-      <Debug
-        :element="element"
-        :context="context"
-        :value="value"
-        @handleDisable="handleDisable"
-      />
+      <CommercetoolsSelector :element="element" :context="context" :value.sync="value" />
+      <Debug :element="element" :context="context" :value="value" @handleDisable="handleDisable" />
       <resize-observer @notify="updateSize" />
     </div>
   </div>
@@ -35,20 +26,20 @@ export default {
   components: {
     Callout,
     Debug,
-    CommercetoolsSelector
+    CommercetoolsSelector,
   },
   data: () => ({
     loaded: false,
     errorMessage: "",
     element: {},
     context: {},
-    value: null
+    value: null,
   }),
-  created: function() {
+  created: function () {
     try {
       CustomElement.init(this.initialize);
       CustomElement.onDisabledChanged(this.handleDisable);
-      CustomElement.observeElementChanges([], elementCodename => {
+      CustomElement.observeElementChanges([], (elementCodename) => {
         GlobalEventBus.$emit("onElementChanged", elementCodename[0]);
       });
     } catch (error) {
@@ -56,10 +47,10 @@ export default {
     }
   },
   methods: {
-    getElementValue: function(elementCodename) {
+    getElementValue: function (elementCodename) {
       return new Promise((resolve, reject) => {
         try {
-          CustomElement.getElementValue(elementCodename, value => {
+          CustomElement.getElementValue(elementCodename, (value) => {
             resolve(value);
           });
         } catch (error) {
@@ -67,24 +58,28 @@ export default {
         }
       });
     },
-    handleDisable: function(disableState) {
+    handleDisable: function (disableState) {
       this.element.disabled = disableState;
     },
-    initialize: function(element, context) {
+    initialize: function (element, context) {
       this.element = element;
+      if (!this.element.config) {
+        this.errorMessage = "Configuration not found, please add element configuration!";
+        return;
+      }
       this.context = context;
       this.value = this.element.value ? JSON.parse(this.element.value) : null;
       this.loaded = true;
       this.updateSize();
     },
-    save: function(value) {
+    save: function (value) {
       // Explicitly using == to match both null and undefined
       const toSave = value == null ? null : JSON.stringify(value);
       this.element.value = toSave;
       CustomElement.setValue(toSave);
     },
     updateSize() {
-      Vue.nextTick(function() {
+      Vue.nextTick(function () {
         const height = Math.max(
           document.body.scrollHeight,
           document.body.offsetHeight,
@@ -93,13 +88,13 @@ export default {
 
         CustomElement.setHeight(height);
       });
-    }
+    },
   },
   watch: {
-    value: function(newValue) {
+    value: function (newValue) {
       this.save(newValue);
-    }
-  }
+    },
+  },
 };
 </script>
 

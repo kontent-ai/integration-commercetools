@@ -6,6 +6,7 @@ module.exports = {
     https: {
       key: fs.readFileSync("./certs/localhost.key"),
       cert: fs.readFileSync("./certs/localhost.cert")
-    }
+    },
+    disableHostCheck: true
   }
 };
