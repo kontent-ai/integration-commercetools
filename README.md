@@ -1,5 +1,8 @@
 [![Core integration][core-shield]](https://kontent.ai/integrations/commercetools)
 [![Gallery][gallery-shield]](https://kentico.github.io/kontent-custom-element-samples/gallery/)
+[![Stack Overflow][stack-shield]](https://stackoverflow.com/tags/kentico-kontent)
+[![GitHub Discussions][discussion-shield]](https://github.com/Kentico/Home/discussions)
+
 
 ![Last modified][last-commit]
 [![Issues][issues-shield]][issues-url]
@@ -7,7 +10,6 @@
 [![Forks][forks-shield]][forks-url]
 [![MIT License][license-shield]][license-url]
 
-[![Stack Overflow][stack-shield]](https://stackoverflow.com/tags/kentico-kontent)
 
 <p align="center">
 <image src="docs/01-kk-logo-main.svg" alt="kontent logo" width="300" />
@@ -187,4 +189,5 @@ We have collected notes on how to contribute to this project in [CONTRIBUTING.md
 [core-shield]: https://img.shields.io/static/v1?label=&message=core%20integration&style=for-the-badge&color=FF5733
 [gallery-shield]: https://img.shields.io/static/v1?label=&message=extension%20gallery&style=for-the-badge&color=51bce0
 [stack-shield]: https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white&style=for-the-badge
+[discussion-shield]: https://img.shields.io/badge/GitHub-Discussions-FE7A16.svg?logo=github&style=for-the-badge
 [product-demo]: docs/commercetools-demo.gif?raw=true
