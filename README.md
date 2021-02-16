@@ -24,7 +24,7 @@ alt="commercetools logo" width="300">
   <a href="#what-is-saved">Saved value</a> •
   <a href="#developing">Developing</a> •
   <a href="#contributors">Contributors</a> •
-  <a href="#licence">Licence</a> •
+  <a href="#license">License</a> •
   <a href="#additional-resources">Resources</a>
 </p>
 
