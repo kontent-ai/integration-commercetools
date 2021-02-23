@@ -171,8 +171,6 @@ We have collected notes on how to contribute to this project in [CONTRIBUTING.md
 - [Custom Element API reference](https://docs.kontent.ai/reference/custom-elements-js-api)
 
 
-![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/kontent-custom-element-commercetools?pixel)
-
 
 [last-commit]: https://img.shields.io/github/last-commit/Kentico/kontent-custom-element-commercetools?style=for-the-badge
 [contributors-shield]: https://img.shields.io/github/contributors/Kentico/kontent-custom-element-commercetools.svg?style=for-the-badge
