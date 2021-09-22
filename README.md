@@ -11,7 +11,7 @@
 [![GitHub Discussions][discussion-shield]](https://github.com/Kentico/Home/discussions)
 
 <p align="center">
-<image src="docs/01-kk-logo-main.svg" alt="kontent logo" width="300" />
+<image src="docs/kk-logo.svg" alt="kontent logo" width="250" />
 <image src="docs/1.commercetools_primary-logo_horizontal_RGB.png" 
 alt="commercetools logo" width="300">
 </p>
@@ -28,7 +28,7 @@ alt="commercetools logo" width="300">
   <a href="#additional-resources">Resources</a>
 </p>
 
-This [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features) extension for [Kentico Kontent](https://kontent.ai) allows users to search and link selected products from [commercetools](https://commercetools.com) into their structured content.
+This [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features) extension for [Kontent by Kentico](https://kontent.ai) allows users to search and link selected products from [commercetools](https://commercetools.com) into their structured content.
 
 ## Features
 
@@ -58,7 +58,7 @@ In order to use this custom element extension with your commercetools account, y
 
 ![Add new Api client](docs/commercetools-setup-1.png)
 
-- Next, a dialog for your Kentico Kontent API client will be opened. Fill out the **Name** input field and under **Scopes** select **Products(all)** and **Project Settings** under the **View** category. This will give the extension a read-only access to your product list so it can be searched through while linking products to your content in Kentico Kontent. 
+- Next, a dialog for your Kontent API client will be opened. Fill out the **Name** input field and under **Scopes** select **Products(all)** and **Project Settings** under the **View** category. This will give the extension a read-only access to your product list so it can be searched through while linking products to your content in Kontent by Kentico. 
 - After your scopes and client name has been put in, click the **Create API client** button in the top right of the screen.
 
 ![Create new Api client](docs/commercetools-setup-2.png)
@@ -67,7 +67,7 @@ In order to use this custom element extension with your commercetools account, y
 
 ![Api client settings](docs/commercetools-setup-3.png)
 
-- Copy all of the generated credentials as these will be needed for the custom element setup that takes place inside of the Kentico Kontent application. The [following section](#configuring-the-custom-element) describes each of the generated settings and shows you, how to create the final configuration object for your element. 
+- Copy all of the generated credentials as these will be needed for the custom element setup that takes place inside of the Kontent application. The [following section](#configuring-the-custom-element) describes each of the generated settings and shows you, how to create the final configuration object for your element. 
 
 
 > **⚠ WARNING: You won't be able to access the credentials screen once you close it.**
@@ -166,7 +166,7 @@ We have collected notes on how to contribute to this project in [CONTRIBUTING.md
 ## Additional Resources
 
 - [Custom Element Gallery on github](https://kentico.github.io/kontent-custom-element-samples/gallery/)
-- [Kentico Kontent's Integration documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrations-overview)
+- [Kontent's Integration documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrations-overview)
 - [Custom Element documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/content-editing-extensions)
 - [Custom Element API reference](https://docs.kontent.ai/reference/custom-elements-js-api)
 
