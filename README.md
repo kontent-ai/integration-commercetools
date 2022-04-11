@@ -126,7 +126,7 @@ The custom element will store the selected product's information in the followin
 }]
 ```
 
-This value will be accessible though the [Kontent's Delivery API](https://docs.kontent.ai/reference/delivery-api) once the content item, containing the custom element, will be saved (through preview), or published (production).
+This value will be accessible though the [Kontent's Delivery API](https://kontent.ai/learn/reference/delivery-api) once the content item, containing the custom element, will be saved (through preview), or published (production).
 
 ## Developing
 
@@ -166,9 +166,9 @@ We have collected notes on how to contribute to this project in [CONTRIBUTING.md
 ## Additional Resources
 
 - [Custom Element Gallery on github](https://kentico.github.io/kontent-custom-element-samples/gallery/)
-- [Kontent's Integration documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrations-overview)
-- [Custom Element documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/content-editing-extensions)
-- [Custom Element API reference](https://docs.kontent.ai/reference/custom-elements-js-api)
+- [Kontent's Integration documentation](https://kontent.ai/learn/tutorials/develop-apps/integrate/integrations-overview)
+- [Custom Element documentation](https://kontent.ai/learn/tutorials/develop-apps/integrate/content-editing-extensions)
+- [Custom Element API reference](https://kontent.ai/learn/reference/custom-elements-js-api)
 
 
 
