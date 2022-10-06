@@ -89,7 +89,6 @@ You will need to add the custom element to a content type filling in the hosted 
 
 | Name                         | Type    | Description                                                                                                                                                                                                                                                                                                                                                                    |
 |------------------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| debug                        | boolean | (Optional) If present and set to true the debug panel will activate when editing a content item.                                                                                                                                                                                                                                                                               |
 | multiSelect                  | boolean | If set to true, it will be possible to select multiple products. If set to false, it will be possible to only select a single product                                                                                                                                                                                                                                          |
 | commercetools                | object  | This contains all the details required to connect to the [commercetools API](https://docs.commercetools.com/http-api). The values for this object will be derived from an API client that you configure in commercetools with the exception of the `defaultCulture`. When generating the API client, be sure to select the `view_products` and `view_project_settings` scopes. |
 | commercetools.defaultCulture | string  | Set this to the IETF language tag of the language in commercetools to use by default for search.                                                                                                                                                                                                                                                                               |
@@ -104,7 +103,6 @@ Sample parameters JSON:
 
 ```json
 {
-    "debug": true,
     "multiSelect": true,
     "commercetools": {
         "defaultCulture": "en",
@@ -134,27 +132,18 @@ This value will be accessible though the [Kontent.ai Delivery API](https://konte
 
 ## Developing
 
-#### 
-
 ```bash
 # Initial project setup
 $ npm install
 
-# Compile and hot-reload for development
-$ npm run serve
-
 # Compile and minify for production
 $ npm run build
 
-# Lint and fix files
-$ npm run lint
+# Compile and run on local server
+$ npm start
 ```
 
-
-### Customize Vue CLI configuration
-
-See [Vue CLI Configuration Reference](https://cli.vuejs.org/config/).
-
+The custom element is created with [Create React App](https://create-react-app.dev/).
 
 ## Contributors
 We have collected notes on how to contribute to this project in [CONTRIBUTING.md](CONTRIBUTING.md).

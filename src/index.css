@@ -1,0 +1,150 @@
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 8px;
+}
+
+.title-pane {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title .text {
+    margin-right: 8px;
+    color: #ccc;
+}
+
+.title .text--is-selected {
+    color: #000;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+}
+
+.search-form__dropdown {
+    margin-right: 8px;
+}
+
+.dropdown-selected__item-icon {
+    display: flex;
+}
+
+.search-term {
+    min-width: auto;
+    margin-right: 8px;
+}
+
+.tile {
+    display: inline-block;
+    width: 280px;
+    margin: 10px;
+    border: solid 1px transparent;
+    position: relative;
+    text-align: center;
+    background-color: transparent;
+    padding-bottom: 16px;
+}
+
+.tile--is-selected {
+    cursor: default;
+}
+
+.tile:hover, .tile:focus {
+    border: solid 1px #ccc;
+}
+
+.tile .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.tile .id {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #ccc;
+    padding: 5px;
+    padding-top: 0;
+}
+
+.no-image {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    color: #ccc;
+    background-color: #f8f8f8;
+    line-height: 150px;
+    margin: 5px;
+}
+
+.preview {
+    cursor: pointer;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin: 5px;
+}
+
+.tile--is-selected > .preview,
+.tile--is-selected > .no-image {
+    cursor: default;
+}
+
+.preview:active {
+    outline: none;
+}
+
+.tile--is-selected:hover {
+    border: solid 1px transparent;
+}
+
+.tile__actions-pane {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 8px;
+}
+
+.tile__action {
+    min-width: 0;
+}
+
+.tile__action + .tile__action {
+    margin-left: 8px;
+}
+
+.results {
+    margin-top: 16px;
+}
+
+.product-action--remove:hover {
+    background-color: #b10202;
+    color: #fff;
+}
+
+.product-action--remove {
+    border: none;
+    background-color: transparent;
+}
+
+.product-action {
+    transition: all .15s cubic-bezier(.23, 1, .32, 1) 0s;
+    margin-right: 8px;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 16px;
+    color: #151515;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.product-action > i {
+    display: block;
+}
