@@ -89,7 +89,7 @@ You will need to add the custom element to a content type filling in the hosted 
 
 | Name                         | Type    | Description                                                                                                                                                                                                                                                                                                                                                                    |
 |------------------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| multiSelect                  | boolean | If set to true, it will be possible to select multiple products. If set to false, it will be possible to only select a single product                                                                                                                                                                                                                                          |
+| isMultiSelect                  | boolean | If set to true, it will be possible to select multiple products. If set to false, it will be possible to only select a single product                                                                                                                                                                                                                                          |
 | commercetools                | object  | This contains all the details required to connect to the [commercetools API](https://docs.commercetools.com/http-api). The values for this object will be derived from an API client that you configure in commercetools with the exception of the `defaultCulture`. When generating the API client, be sure to select the `view_products` and `view_project_settings` scopes. |
 | commercetools.defaultCulture | string  | Set this to the IETF language tag of the language in commercetools to use by default for search.                                                                                                                                                                                                                                                                               |
 | commercetools.projectKey     | string  | This is the commercetools project key.                                                                                                                                                                                                                                                                                                                                         |
@@ -103,7 +103,7 @@ Sample parameters JSON:
 
 ```json
 {
-    "multiSelect": true,
+    "isMultiSelect": true,
     "commercetools": {
         "defaultCulture": "en",
         "projectKey": "your-project",
