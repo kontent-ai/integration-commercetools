@@ -51,7 +51,7 @@ The element also offers an optional debug panel for diagnostics.
 
 Netlify has made this easy. If you click the deploy button below, it will guide you through the process of deploying it to Netlify and leave you with a copy of the repository in your account as well.
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/kontent-ai/custom-element-commercetools)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/kontent-ai/integration-commercetools)
 
 
 ## Commercetools setup
@@ -148,8 +148,8 @@ The custom element is created with [Create React App](https://create-react-app.d
 ## Contributors
 We have collected notes on how to contribute to this project in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-<a href="https://github.com/kontent-ai/custom-element-commercetools/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=kontent-ai/custom-element-commercetools" />
+<a href="https://github.com/kontent-ai/integration-commercetools/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=kontent-ai/integration-commercetools" />
 </a>
 
 ## License
@@ -164,15 +164,15 @@ We have collected notes on how to contribute to this project in [CONTRIBUTING.md
 
 
 
-[last-commit]: https://img.shields.io/github/last-commit/kontent-ai/custom-element-commercetools?style=for-the-badge
-[contributors-shield]: https://img.shields.io/github/contributors/kontent-ai/custom-element-commercetools.svg?style=for-the-badge
-[contributors-url]: https://github.com/kontent-ai/custom-element-commercetools/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/kontent-ai/custom-element-commercetools.svg?style=for-the-badge
-[forks-url]: https://github.com/kontent-ai/custom-element-commercetools/network/members
-[issues-shield]: https://img.shields.io/github/issues/kontent-ai/custom-element-commercetools.svg?style=for-the-badge
-[issues-url]: https://github.com/kontent-ai/custom-element-commercetools/issues
-[license-shield]: https://img.shields.io/github/license/kontent-ai/custom-element-commercetools.svg?style=for-the-badge
-[license-url]: https://github.com/kontent-ai/custom-element-commercetools/blob/master/LICENSE
+[last-commit]: https://img.shields.io/github/last-commit/kontent-ai/integration-commercetools?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/kontent-ai/integration-commercetools.svg?style=for-the-badge
+[contributors-url]: https://github.com/kontent-ai/integration-commercetools/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/kontent-ai/integration-commercetools.svg?style=for-the-badge
+[forks-url]: https://github.com/kontent-ai/integration-commercetools/network/members
+[issues-shield]: https://img.shields.io/github/issues/kontent-ai/integration-commercetools.svg?style=for-the-badge
+[issues-url]: https://github.com/kontent-ai/integration-commercetools/issues
+[license-shield]: https://img.shields.io/github/license/kontent-ai/integration-commercetools.svg?style=for-the-badge
+[license-url]: https://github.com/kontent-ai/integration-commercetools/blob/master/LICENSE
 [core-shield]: https://img.shields.io/static/v1?label=&message=core%20integration&color=FF5733&style=for-the-badge
 [stack-shield]: https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white&style=for-the-badge
 [discord-shield]: https://img.shields.io/discord/821885171984891914?label=Discord&logo=Discord&logoColor=white&style=for-the-badge
