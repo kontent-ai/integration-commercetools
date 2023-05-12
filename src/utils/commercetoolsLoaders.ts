@@ -1,6 +1,7 @@
-import { ElementConfig } from '../types/elementConfig';
-import { AuthMiddlewareOptions, ClientBuilder, HttpMiddlewareOptions } from '@commercetools/sdk-client-v2';
 import { createApiBuilderFromCtpClient, ProductProjection, ProductVariant } from '@commercetools/platform-sdk';
+import { AuthMiddlewareOptions, ClientBuilder, HttpMiddlewareOptions } from '@commercetools/sdk-client-v2';
+
+import { ElementConfig } from '../types/elementConfig';
 import { SavedProduct, SelectedProduct } from '../types/product';
 
 export const loadLanguages = (config: ElementConfig) =>
@@ -35,7 +36,7 @@ export const searchProducts = (config: ElementConfig, allLanguages: ReadonlyArra
     .get({
       queryArgs: {
         staged: true,
-        localeProjection: [...allLanguages ?? []],
+        localeProjection: [...allLanguages],
         [`text.${selectedLanguage}`]: searchString,
       },
     })

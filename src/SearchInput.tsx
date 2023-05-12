@@ -1,4 +1,5 @@
 import { FC, SyntheticEvent, useState } from "react";
+
 import { Dropdown } from './Dropdown';
 
 type Props = Readonly<{
@@ -25,7 +26,10 @@ export const SearchInput: FC<Props> = props => {
   }
 
   return (
-    <form className="search-form" onSubmit={submit}>
+    <form
+      className="search-form"
+      onSubmit={submit}
+    >
       <input
         className="search-term text-field__input"
         value={searchString}
