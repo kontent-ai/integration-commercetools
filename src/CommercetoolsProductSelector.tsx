@@ -1,13 +1,14 @@
-import { FC, useCallback, useLayoutEffect, useState } from 'react';
-import { SearchInput } from './SearchInput';
-import { ProductTile } from './ProductTile';
-import { SelectedProducts } from './SelectedProducts';
-import { PoweredByLogo } from './PoweredByLogo';
-import { ElementConfig, isElementConfig } from './types/elementConfig';
 import { ProductProjection } from '@commercetools/platform-sdk';
+import { FC, useCallback, useLayoutEffect, useState } from 'react';
+
+import { PoweredByLogo } from './PoweredByLogo';
+import { ProductTile } from './ProductTile';
+import { SearchInput } from './SearchInput';
+import { SelectedProducts } from './SelectedProducts';
+import { ElementConfig, isElementConfig } from './types/elementConfig';
 import { SavedProduct, SelectedProduct } from './types/product';
-import { useCustomElement } from './utils/useCustomElement';
 import { loadLanguages, loadSelectedProducts, searchProducts } from './utils/commercetoolsLoaders';
+import { useCustomElement } from './utils/useCustomElement';
 
 export const CommercetoolsProductSelector: FC = () => {
   const [currentValue, setCurrentValue] = useState<null | ReadonlyArray<SelectedProduct>>(null);
@@ -73,11 +74,13 @@ export const CommercetoolsProductSelector: FC = () => {
     searchProducts(config, allLanguages, selectedLanguage, searchString)
       .then(setSearchResults);
 
+  const onRemove = config.isMultiSelect ? (p: SelectedProduct) => updateValue(currentValue.filter(v => v !== p)) : undefined;
+
   return (
     <>
       <SelectedProducts
         products={currentValue}
-        onRemove={config.isMultiSelect ? p => updateValue(currentValue?.filter(v => v !== p)) : undefined}
+        onRemove={onRemove}
         isDisabled={isDisabled}
         onClear={() => updateValue([])}
       />
@@ -97,13 +100,14 @@ export const CommercetoolsProductSelector: FC = () => {
               <ProductTile
                 key={product.id}
                 product={product}
-                onSelect={variant => updateValue(config?.isMultiSelect
+                onSelect={variant => updateValue(config.isMultiSelect
                   ? [...currentValue, { product, variant, language: selectedLanguage }]
                   : [{ product, variant, language: selectedLanguage }])}
                 isDisabled={isDisabled}
                 language={selectedLanguage}
                 selectedVariantId={null}
-              />))}
+              />
+            ))}
           </div>
         )}
       </div>

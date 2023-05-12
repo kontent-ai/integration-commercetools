@@ -1,5 +1,6 @@
-import commercetoolsLogo from './images/logo_no_claim_commercetools_RGB_horizontal_color-on-white.svg'
 import { FC } from "react";
+
+import commercetoolsLogo from './images/logo_no_claim_commercetools_RGB_horizontal_color-on-white.svg'
 
 export const PoweredByLogo: FC = () => (
   <div style={{ float: 'right', padding: 10 }}>

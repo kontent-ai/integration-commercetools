@@ -1,5 +1,6 @@
-import { FC, MouseEvent, useMemo, useState } from 'react';
 import { ProductProjection, ProductVariant } from '@commercetools/platform-sdk';
+import { FC, MouseEvent, useMemo, useState } from 'react';
+
 import { Dropdown } from './Dropdown';
 
 type Props = Readonly<{
@@ -20,13 +21,13 @@ export const ProductTile: FC<Props> = props => {
   };
   const allVariants = useMemo(() => [props.product.masterVariant, ...props.product.variants], [props.product]);
   const variant = allVariants.find(v => v.id === props.selectedVariantId) ?? selectedVariant;
-  const name = props.product.name[props.language] ?? '';
+  const name = props.product.name[props.language] || '';
 
   return (
     <div className="tile">
       <div className="title-pane">
         <div className="title">{name}</div>
-        {!props.isDisabled && props.onRemove && (
+        {!props.isDisabled && !!props.onRemove && (
           <div
             className="product-action product-action--remove"
             title="Remove"
@@ -37,12 +38,14 @@ export const ProductTile: FC<Props> = props => {
         )}
       </div>
       <div className="id">SKU: {variant.sku || 'N/A'}</div>
-      {variant.images && variant.images.length
-        ? <img
-          className="preview"
-          src={variant.images[0].url}
-          alt={variant.images[0].label}
-        />
+      {variant.images?.length
+        ? (
+          <img
+            className="preview"
+            src={variant.images[0]?.url}
+            alt={variant.images[0]?.label}
+          />
+        )
         : <div className="no-image">No image available</div>}
       {!props.selectedVariantId && (
         <div className="tile__actions-pane">
@@ -55,7 +58,10 @@ export const ProductTile: FC<Props> = props => {
             onSelectedOptionChange={setSelectedVariant}
             maxDropdownHeight={120}
           />
-          <button className="btn btn--primary tile__action" onClick={() => props.onSelect?.(selectedVariant)}>
+          <button
+            className="btn btn--primary tile__action"
+            onClick={() => props.onSelect?.(selectedVariant)}
+          >
             Select
           </button>
         </div>

@@ -50,7 +50,10 @@ export const Dropdown = <Option extends unknown>(props: Props<Option>) => {
   useHotkeys('down', preventDefaultAnd(moveFocusDown), { enabled: isFocused }, [moveFocusDown]);
 
   return (
-    <div className={props.className} style={{ position: 'relative' }}>
+    <div
+      className={props.className}
+      style={{ position: 'relative' }}
+    >
       <div
         className="combo-box"
         tabIndex={0}
@@ -60,7 +63,10 @@ export const Dropdown = <Option extends unknown>(props: Props<Option>) => {
       >
         <div className="dropdown-selected">
           <div className="dropdown-selected__pane">
-            <div className="dropdown-selected__text" title={props.getOptionName(props.selectedOption)}>
+            <div
+              className="dropdown-selected__text"
+              title={props.getOptionName(props.selectedOption)}
+            >
               {props.getOptionName(props.selectedOption)}
             </div>
             <div className="dropdown-selected__item-icon">
@@ -69,13 +75,16 @@ export const Dropdown = <Option extends unknown>(props: Props<Option>) => {
           </div>
         </div>
       </div>
-      {isDropdownOpen && (
+      {!!isDropdownOpen && (
         <div
           className="dropdown-options"
           style={{ position: 'absolute', top: '105%' }}
           onMouseDown={e => e.preventDefault()}
         >
-          <div className="dropdown-options__pane" style={{ maxHeight: props.maxDropdownHeight }}>
+          <div
+            className="dropdown-options__pane"
+            style={{ maxHeight: props.maxDropdownHeight }}
+          >
             <div className="dropdown-options-group">
               {props.options.map(option => (
                 <div
