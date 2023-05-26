@@ -1,6 +1,6 @@
 import { FC, SyntheticEvent, useState } from "react";
 
-import { Dropdown } from './Dropdown';
+import { Dropdown } from "./Dropdown";
 
 type Props = Readonly<{
   isDisabled: boolean;
@@ -12,7 +12,7 @@ type Props = Readonly<{
 }>;
 
 export const SearchInput: FC<Props> = props => {
-  const [searchString, setSearchString] = useState('');
+  const [searchString, setSearchString] = useState("");
 
   const submit = props.isDisabled
     ? undefined
@@ -22,8 +22,8 @@ export const SearchInput: FC<Props> = props => {
     };
   const clear = () => {
     props.onClear();
-    setSearchString('');
-  }
+    setSearchString("");
+  };
 
   return (
     <form
@@ -69,6 +69,6 @@ export const SearchInput: FC<Props> = props => {
   );
 };
 
-SearchInput.displayName = 'SearchInput';
+SearchInput.displayName = "SearchInput";
 
 const identity = <T extends unknown>(v: T) => v;

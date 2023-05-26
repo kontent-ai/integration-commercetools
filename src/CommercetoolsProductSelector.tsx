@@ -1,14 +1,14 @@
-import { ProductProjection } from '@commercetools/platform-sdk';
-import { FC, useCallback, useLayoutEffect, useState } from 'react';
+import { ProductProjection } from "@commercetools/platform-sdk";
+import { FC, useCallback, useLayoutEffect, useState } from "react";
 
-import { PoweredByLogo } from './PoweredByLogo';
-import { ProductTile } from './ProductTile';
-import { SearchInput } from './SearchInput';
-import { SelectedProducts } from './SelectedProducts';
-import { ElementConfig, isElementConfig } from './types/elementConfig';
-import { SavedProduct, SelectedProduct } from './types/product';
-import { loadLanguages, loadSelectedProducts, searchProducts } from './utils/commercetoolsLoaders';
-import { useCustomElement } from './utils/useCustomElement';
+import { PoweredByLogo } from "./PoweredByLogo";
+import { ProductTile } from "./ProductTile";
+import { SearchInput } from "./SearchInput";
+import { SelectedProducts } from "./SelectedProducts";
+import { ElementConfig, isElementConfig } from "./types/elementConfig";
+import { SavedProduct, SelectedProduct } from "./types/product";
+import { loadLanguages, loadSelectedProducts, searchProducts } from "./utils/commercetoolsLoaders";
+import { useCustomElement } from "./utils/useCustomElement";
 
 export const CommercetoolsProductSelector: FC = () => {
   const [currentValue, setCurrentValue] = useState<null | ReadonlyArray<SelectedProduct>>(null);
@@ -31,7 +31,7 @@ export const CommercetoolsProductSelector: FC = () => {
           setAllLanguages(languages);
           const defaultLanguage = languages.includes(config.commercetools.defaultCulture)
             ? config.commercetools.defaultCulture
-            : languages[0] ?? '';
+            : languages[0] ?? "";
 
           setConfig({
             ...config,
@@ -74,7 +74,9 @@ export const CommercetoolsProductSelector: FC = () => {
     searchProducts(config, allLanguages, selectedLanguage, searchString)
       .then(setSearchResults);
 
-  const onRemove = config.isMultiSelect ? (p: SelectedProduct) => updateValue(currentValue.filter(v => v !== p)) : undefined;
+  const onRemove = config.isMultiSelect
+    ? (p: SelectedProduct) => updateValue(currentValue.filter(v => v !== p))
+    : undefined;
 
   return (
     <>
@@ -100,9 +102,12 @@ export const CommercetoolsProductSelector: FC = () => {
               <ProductTile
                 key={product.id}
                 product={product}
-                onSelect={variant => updateValue(config.isMultiSelect
-                  ? [...currentValue, { product, variant, language: selectedLanguage }]
-                  : [{ product, variant, language: selectedLanguage }])}
+                onSelect={variant =>
+                  updateValue(
+                    config.isMultiSelect
+                      ? [...currentValue, { product, variant, language: selectedLanguage }]
+                      : [{ product, variant, language: selectedLanguage }],
+                  )}
                 isDisabled={isDisabled}
                 language={selectedLanguage}
                 selectedVariantId={null}
@@ -116,4 +121,4 @@ export const CommercetoolsProductSelector: FC = () => {
   );
 };
 
-CommercetoolsProductSelector.displayName = 'CommercetoolsProductSelector';
+CommercetoolsProductSelector.displayName = "CommercetoolsProductSelector";

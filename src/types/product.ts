@@ -1,4 +1,4 @@
-import { ProductProjection, ProductVariant } from '@commercetools/platform-sdk';
+import { ProductProjection, ProductVariant } from "@commercetools/platform-sdk";
 
 export type SavedProduct = Readonly<{
   id: string;

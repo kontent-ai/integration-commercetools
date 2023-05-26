@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useHotkeys } from 'react-hotkeys-hook';
+import { useCallback, useEffect, useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 
 type Props<Option> = Readonly<{
   options: ReadonlyArray<Option>;
@@ -29,7 +29,7 @@ export const Dropdown = <Option extends unknown>(props: Props<Option>) => {
     if (!newFocusedOption) {
       return;
     }
-    document.getElementById(getOptionId(newFocusedOption))?.scrollIntoView({ block: 'nearest' });
+    document.getElementById(getOptionId(newFocusedOption))?.scrollIntoView({ block: "nearest" });
     setFocusedOption(newFocusedOption);
   }, [props.options, getOptionId, focusedOption]);
 
@@ -41,18 +41,23 @@ export const Dropdown = <Option extends unknown>(props: Props<Option>) => {
     props.onSelectedOptionChange(o);
   };
 
-  const onEnter = () => isDropdownOpen
-    ? selectOption(focusedOption)
-    : setIsDropdownOpen(true);
+  const onEnter = () =>
+    isDropdownOpen
+      ? selectOption(focusedOption)
+      : setIsDropdownOpen(true);
 
-  useHotkeys('enter', preventDefaultAnd(onEnter), { enabled: isFocused }, [props.onSelectedOptionChange, focusedOption, isDropdownOpen]);
-  useHotkeys('up', preventDefaultAnd(moveFocusUp), { enabled: isFocused }, [moveFocusUp]);
-  useHotkeys('down', preventDefaultAnd(moveFocusDown), { enabled: isFocused }, [moveFocusDown]);
+  useHotkeys("enter", preventDefaultAnd(onEnter), { enabled: isFocused }, [
+    props.onSelectedOptionChange,
+    focusedOption,
+    isDropdownOpen,
+  ]);
+  useHotkeys("up", preventDefaultAnd(moveFocusUp), { enabled: isFocused }, [moveFocusUp]);
+  useHotkeys("down", preventDefaultAnd(moveFocusDown), { enabled: isFocused }, [moveFocusDown]);
 
   return (
     <div
       className={props.className}
-      style={{ position: 'relative' }}
+      style={{ position: "relative" }}
     >
       <div
         className="combo-box"
@@ -70,7 +75,7 @@ export const Dropdown = <Option extends unknown>(props: Props<Option>) => {
               {props.getOptionName(props.selectedOption)}
             </div>
             <div className="dropdown-selected__item-icon">
-              <i className={`icon-chevron-${isDropdownOpen ? 'up' : 'down'}`} />
+              <i className={`icon-chevron-${isDropdownOpen ? "up" : "down"}`} />
             </div>
           </div>
         </div>
@@ -78,7 +83,7 @@ export const Dropdown = <Option extends unknown>(props: Props<Option>) => {
       {!!isDropdownOpen && (
         <div
           className="dropdown-options"
-          style={{ position: 'absolute', top: '105%' }}
+          style={{ position: "absolute", top: "105%" }}
           onMouseDown={e => e.preventDefault()}
         >
           <div
@@ -92,8 +97,16 @@ export const Dropdown = <Option extends unknown>(props: Props<Option>) => {
                   id={props.getOptionId(option)}
                   className={`
                     dropdown-option
-                    ${props.getOptionId(option) === props.getOptionId(props.selectedOption) ? 'dropdown-option--is-selected' : ''}
-                    ${props.getOptionId(option) === props.getOptionId(focusedOption) ? 'dropdown-option--is-highlighted' : ''}
+                    ${
+                    props.getOptionId(option) === props.getOptionId(props.selectedOption)
+                      ? "dropdown-option--is-selected"
+                      : ""
+                  }
+                    ${
+                    props.getOptionId(option) === props.getOptionId(focusedOption)
+                      ? "dropdown-option--is-highlighted"
+                      : ""
+                  }
                   `}
                   onClick={() => selectOption(option)}
                 >
@@ -112,9 +125,14 @@ export const Dropdown = <Option extends unknown>(props: Props<Option>) => {
   );
 };
 
-Dropdown.displayName = 'Dropdown';
+Dropdown.displayName = "Dropdown";
 
-const moveFocusedOption = <Option extends unknown>(allOptions: ReadonlyArray<Option>, getOptionId: (o: Option) => string, focusedOption: Option, moveBy: number): Option | null => {
+const moveFocusedOption = <Option extends unknown>(
+  allOptions: ReadonlyArray<Option>,
+  getOptionId: (o: Option) => string,
+  focusedOption: Option,
+  moveBy: number,
+): Option | null => {
   const focusedIndex = allOptions.findIndex(o => getOptionId(o) === getOptionId(focusedOption));
   if (focusedIndex < 0) {
     return allOptions[0] ?? null;
