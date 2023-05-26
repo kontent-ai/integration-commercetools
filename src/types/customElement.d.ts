@@ -2,7 +2,7 @@ type ElementInfo = Readonly<{
   config: Readonly<Record<string, unknown>> | null;
   disabled: boolean;
   value: string;
-}>
+}>;
 
 declare const CustomElement: {
   setHeight: (height: number) => void;

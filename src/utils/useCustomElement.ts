@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
 type Params<Config> = Readonly<{
   isValidConfig: (v: unknown) => v is Config;
@@ -32,7 +32,7 @@ export const useCustomElement = <Config>(params: Params<Config>) => {
     CustomElement.init((el) => {
       const newConfig = el.config;
       if (!isValidConfig(newConfig)) {
-        throw new Error('Invalid custom element configuration. Please check the documentation.');
+        throw new Error("Invalid custom element configuration. Please check the documentation.");
       }
 
       processValue(el.value, newConfig, setConfig);
@@ -54,8 +54,8 @@ export const useCustomElement = <Config>(params: Params<Config>) => {
         updateSize();
       }
     };
-    window.addEventListener('resize', listener);
-    return () => window.removeEventListener('resize', listener);
+    window.addEventListener("resize", listener);
+    return () => window.removeEventListener("resize", listener);
   }, [updateSize, windowWidth]);
 
   return {

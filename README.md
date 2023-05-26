@@ -53,30 +53,29 @@ Netlify has made this easy. If you click the deploy button below, it will guide 
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/kontent-ai/integration-commercetools)
 
-
 ## Commercetools setup
-In order to use this custom element extension with your commercetools account, you'll need to set up the integration in your [Merchant Center](https://mc.commercetools.com/). 
+
+In order to use this custom element extension with your commercetools account, you'll need to set up the integration in your [Merchant Center](https://mc.commercetools.com/).
 
 ### Adding a new API client
+
 - The custom element will be connecting to your commercetools account and searching for products to include into your Kontent.ai content item element. In order to set up this communication, a new API client has to be created under **Settings** -> **Developer settings** -> **Create new API client**.
 
 ![Add new Api client](docs/commercetools-setup-1.png)
 
-- Next, a dialog for your Kontent.ai API client will be opened. Fill out the **Name** input field and under **Scopes** select **Products(all)** and **Project Settings** under the **View** category. This will give the extension read-only access to your product list, so it can be searched through while linking products to your content in Kontent.ai. 
+- Next, a dialog for your Kontent.ai API client will be opened. Fill out the **Name** input field and under **Scopes** select **Products(all)** and **Project Settings** under the **View** category. This will give the extension read-only access to your product list, so it can be searched through while linking products to your content in Kontent.ai.
 - After your scopes and client name has been put in, click the **Create API client** button in the top right of the screen.
 
 ![Create new Api client](docs/commercetools-setup-2.png)
 
-- All the important information you'll need to set up the custom element will be right in front of you. 
+- All the important information you'll need to set up the custom element will be right in front of you.
 
 ![Api client settings](docs/commercetools-setup-3.png)
 
-- Copy all the generated credentials as these will be needed for the custom element setup that takes place inside the Kontent.ai application. The [following section](#configuring-the-custom-element) describes each of the generated settings and shows you, how to create the final configuration object for your element. 
-
+- Copy all the generated credentials as these will be needed for the custom element setup that takes place inside the Kontent.ai application. The [following section](#configuring-the-custom-element) describes each of the generated settings and shows you, how to create the final configuration object for your element.
 
 > **⚠ WARNING: You won't be able to access the credentials screen once you close it.**
-> Be sure to copy and place all the generated credentials into your custom element configuration, otherwise, you'll be forced to re-create the API client. 
-
+> Be sure to copy and place all the generated credentials into your custom element configuration, otherwise, you'll be forced to re-create the API client.
 
 ![Created Api client](docs/commercetools-setup-4.png)
 
@@ -86,10 +85,9 @@ In order to use this custom element extension with your commercetools account, y
 
 You will need to add the custom element to a content type filling in the hosted code URL and the following JSON parameters:
 
-
 | Name                         | Type    | Description                                                                                                                                                                                                                                                                                                                                                                    |
-|------------------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| isMultiSelect                  | boolean | If set to true, it will be possible to select multiple products. If set to false, it will be possible to only select a single product                                                                                                                                                                                                                                          |
+| ---------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| isMultiSelect                | boolean | If set to true, it will be possible to select multiple products. If set to false, it will be possible to only select a single product                                                                                                                                                                                                                                          |
 | commercetools                | object  | This contains all the details required to connect to the [commercetools API](https://docs.commercetools.com/http-api). The values for this object will be derived from an API client that you configure in commercetools with the exception of the `defaultCulture`. When generating the API client, be sure to select the `view_products` and `view_project_settings` scopes. |
 | commercetools.defaultCulture | string  | Set this to the IETF language tag of the language in commercetools to use by default for search.                                                                                                                                                                                                                                                                               |
 | commercetools.projectKey     | string  | This is the commercetools project key.                                                                                                                                                                                                                                                                                                                                         |
@@ -103,16 +101,16 @@ Sample parameters JSON:
 
 ```json
 {
-    "isMultiSelect": true,
-    "commercetools": {
-        "defaultCulture": "en",
-        "projectKey": "your-project",
-        "clientId": "your-client-id",
-        "secret": "your-client-secret",
-        "oauthUrl": "https://auth.sphere.io",
-        "apiUrl": "https://api.sphere.io",
-        "scope": "view_products:your-project view_project_settings:your-project"
-    }
+  "isMultiSelect": true,
+  "commercetools": {
+    "defaultCulture": "en",
+    "projectKey": "your-project",
+    "clientId": "your-client-id",
+    "secret": "your-client-secret",
+    "oauthUrl": "https://auth.sphere.io",
+    "apiUrl": "https://api.sphere.io",
+    "scope": "view_products:your-project view_project_settings:your-project"
+  }
 }
 ```
 
@@ -146,6 +144,7 @@ $ npm start
 The custom element is created with [Create React App](https://create-react-app.dev/).
 
 ## Contributors
+
 We have collected notes on how to contribute to this project in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 <a href="https://github.com/kontent-ai/integration-commercetools/graphs/contributors">
@@ -161,8 +160,6 @@ We have collected notes on how to contribute to this project in [CONTRIBUTING.md
 - [Kontent.ai Integration documentation](https://kontent.ai/learn/tutorials/develop-apps/integrate/integrations-overview)
 - [Custom Element documentation](https://kontent.ai/learn/tutorials/develop-apps/integrate/content-editing-extensions)
 - [Custom Element API reference](https://kontent.ai/learn/reference/custom-elements-js-api)
-
-
 
 [last-commit]: https://img.shields.io/github/last-commit/kontent-ai/integration-commercetools?style=for-the-badge
 [contributors-shield]: https://img.shields.io/github/contributors/kontent-ai/integration-commercetools.svg?style=for-the-badge

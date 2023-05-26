@@ -1,7 +1,7 @@
-import { ProductProjection, ProductVariant } from '@commercetools/platform-sdk';
-import { FC, MouseEvent, useMemo, useState } from 'react';
+import { ProductProjection, ProductVariant } from "@commercetools/platform-sdk";
+import { FC, MouseEvent, useMemo, useState } from "react";
 
-import { Dropdown } from './Dropdown';
+import { Dropdown } from "./Dropdown";
 
 type Props = Readonly<{
   product: ProductProjection;
@@ -21,7 +21,7 @@ export const ProductTile: FC<Props> = props => {
   };
   const allVariants = useMemo(() => [props.product.masterVariant, ...props.product.variants], [props.product]);
   const variant = allVariants.find(v => v.id === props.selectedVariantId) ?? selectedVariant;
-  const name = props.product.name[props.language] || '';
+  const name = props.product.name[props.language] || "";
 
   return (
     <div className="tile">
@@ -37,7 +37,7 @@ export const ProductTile: FC<Props> = props => {
           </div>
         )}
       </div>
-      <div className="id">SKU: {variant.sku || 'N/A'}</div>
+      <div className="id">SKU: {variant.sku || "N/A"}</div>
       {variant.images?.length
         ? (
           <img
@@ -70,7 +70,7 @@ export const ProductTile: FC<Props> = props => {
   );
 };
 
-ProductTile.displayName = 'ProductTile';
+ProductTile.displayName = "ProductTile";
 
 const getVariantId = (v: ProductVariant) => v.id.toString();
-const getVariantKey = (v: ProductVariant) => v.key ?? '';
+const getVariantKey = (v: ProductVariant) => v.key ?? "";
